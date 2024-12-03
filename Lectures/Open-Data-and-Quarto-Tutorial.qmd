@@ -1,0 +1,239 @@
+---
+title: Open Data Intro and Quarto Tutorial
+author: Ryan Lima
+format: 
+    revealjs:
+        theme: sky
+        smaller: true
+        scrollable: true
+---
+
+# Introduction 
+
+## Before we get started:
+
+You should 
+
+1. Get a GitHub account setup [Sign up](https://github.com/)
+
+2. [Download Github Desktop](https://desktop.github.com/download/)
+
+3. Have R-studio downloaded and updated [RStudio Download](https://posit.co/download/rstudio-desktop/)
+
+4. Download Quarto [Getting Started](https://quarto.org/docs/get-started/)
+
+**You should doing this as I go through the lecture**
+
+
+## What is Open Science and Why is it important?
+
+- Open Science aims to make scientific research more accessible, collaborative, and reproducible. It involves openly sharing data, code, and results to benefit the broader research community.
+
+**Benefits include:**
+
+> * increased visibility
+> * Collaboration
+> * [reproducibility](https://book.the-turing-way.org/reproducible-research/overview)
+> * and potential impact on policy-making and public understanding.
+
+## Open Data short video
+
+## Overview of FAIR data principles: What do they mean, and how do they apply to our Research?
+
+![Illustration from: _The Turing Way_](https://book.the-turing-way.org/_images/fair-principles.svg)
+
+- **Findable**: How to ensure your data can be discovered
+- **Accessible**: Making data available in a way that is easy to access
+- **Interoperable**: Using common standards and formats
+- **Reusable**: Clear documentation and licensing
+
+# Core Concepts of Fair Data
+
+## Findable
+
+- The first step in (re)using data is to find it! Descriptive metadata (information about the data, such as keywords) is essential.
+
+> F1. (Meta)data are assigned a globally unique and persistent identifier
+
+> F2. Data are described with rich metadata (defined by R1 below)
+
+> F3. Metadata clearly and explicitly include the identifier of the data they describe
+
+> F4. (Meta)data are registered or indexed in a searchable resource
+
+## Accessible
+
+- Once the user finds the data and software, they need to know how to access it. Data could be openly available, but it is also possible that authentication and authorization procedures are necessary.
+
+> A1. (Meta)data are retrievable by their identifier using a standardised communications protocol
+
+> A1.1 The protocol is open, free, and universally implementable
+
+> A1.2 The protocol allows for an authentication and authorisation procedure, where necessary
+
+> A2. Metadata are accessible, even when the data are no longer available
+
+## Interoperable
+
+- Data should be integrated with other data and interoperate with applications or workflows.
+
+> I1. (Meta)data use a formal, accessible, shared, and broadly applicable language for knowledge representation.
+
+> I2. (Meta)data use vocabularies that follow FAIR principles
+
+> I3. (Meta)data include qualified references to other (meta)data
+
+## Reusable
+
+- Data should be well-described so that they can be used, combined, and extended in different settings.
+
+> R1. (Meta)data are richly described with a plurality of accurate and relevant attributes
+
+> R1.1. (Meta)data are released with a clear and accessible data usage license
+
+> R1.2. (Meta)data are associated with detailed provenance
+
+> R1.3. (Meta)data meet domain-relevant community standards
+
+
+# Tools for Open Science
+
+## [**Open Science Framework**](https://osf.io/) 
+
+- a free, open-source project management tool that helps researchers collaborate on scientific projects:
+
+![OSF](https://ror.org/img/blog/osf/osf-research-lifecycle.png)
+
+**With OSF, you can:**
+
+> Manage, store, and share documents, datasets, and other information
+
+> Publish - share your work with a wider audience
+
+> Connect to data, preprints, data management and research planning tools
+
+## [**Markdown**](https://en.wikipedia.org/wiki/Markdown)
+![from markdownguide.org](https://mdg.imgix.net/assets/images/dillinger.png?auto=format&fit=clip&q=40&w=1080)
+
+- a lightweight markup language for creating formatted text using a plain-text editor.
+- used to create wikis and websites
+- used in Jupyter Notebooks and R Markdown
+- Quarto converts markdown into javascript and html
+
+## How Markdown works
+
+![from markdownguide.org](https://mdg.imgix.net/assets/images/markdown-flowchart.png?auto=format&fit=clip&q=40&w=1080)
+
+1. Create a Markdown file using a text editor or a dedicated Markdown application. The file should have an .md or .markdown extension.
+2. Open the Markdown file in a Markdown application.
+3. Use the Markdown application to convert the Markdown file to an HTML document.
+4. View the HTML file in a web browser or use the Markdown application to convert it to another file format, like PDF.
+
+> I highly suggest you learn the basics of markdown
+
+## [**GitHub**](https://github.com/)
+
+- A web-based platform for version control using Git, enabling collaboration, sharing, and tracking of code changes in research projects.
+
+- Git and github - Why and how [Medium Article](https://medium.com/swlh/an-introduction-to-git-and-github-22ecb4cb1256)
+
+![from Kaustubh Pandey](https://miro.medium.com/v2/resize:fit:720/format:webp/1*irvoqLol7t-EPNzZN6CSnA.png)
+
+## [**Quarto**](https://quarto.org/)
+
+- Quarto is an open-source scientific and technical publishing system that allows you to create reproducible reports, books, websites, and presentations using R, Python, or Julia.
+
+## [**RStudio**](https://posit.co/download/rstudio-desktop/)
+
+- An integrated development environment (IDE) for R programming, RStudio supports advanced data analysis, visualization, and report generation.
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/RStudio_logo_flat.svg/512px-RStudio_logo_flat.svg.png)
+
+## [**JupyterLab**](https://jupyter.org/)
+
+- JupyterLab is an interactive web-based environment for Jupyter notebooks, code, and data. It supports programming in Python, R, or Julia and integrates well with Quarto and Markdown for scientific documentation.
+
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jupyter_logo.svg/800px-Jupyter_logo.svg.png)
+
+## [**Hydroshare**](https://www.cuahsi.org/data-services/hydroshare)
+
+- An open-source online platform for the sharing and publishing of hydrologic data and models.
+
+- HydroShare is a system operated by The Consortium of Universities for the Advancement of Hydrologic Science Inc. (CUAHSI) that enables users to share and publish data and models in a variety of flexible formats and to make this information available in a citable, shareable, and discoverable manner.  HydroShare includes a repository for data and models, and tools (web apps) that can act on content in HydroShare, providing users with a gateway to high-performance computing and computing in the cloud.
+
+- With HydroShare, you can share data and models with colleagues; manage access to shared content; share, access, visualize, and manipulate a broad set of hydrologic data types and models; publish data and models and obtain a citable digital object identifier (DOI); aggregate resources into collections; discover and access data and models published by others; use the web services application programming interface (API) to access resources programmatically; and use integrated web applications to visualize, analyze and run models with data in HydroShare.
+
+# Resources
+
+## Open Data 
+
+1. [The Turing Way: Research Project Structure](https://the-turing-way.netlify.app/project-design/project-structure.html)
+
+2. A FAIRy Tale [EBook-PDF](https://forskningsdata.dk/fairytale/index.html) :A FAKE STORY IN A TRUSTWORTHY GUIDE
+TO THE FAIR PRINCIPLES FOR RESEARCH DATA.
+
+3. What is FAIR software in 10 Minutes [Youtube](https://www.youtube.com/watch?v=ME8_NRGRhSs&list=PL1CvC6Ez54KDvJbbdLn5rPvf1kInifEh9&index=17)
+ 
+## Project structure, documenting, and naming things 1
+
+4. Documenting Things [Youtube](https://www.youtube.com/watch?v=OVM5Ok7W1NQ);[SlideShow](https://openscapes.github.io/documenting-things/#/title-slide)
+
+5. How to Name Files [Youtube](https://youtu.be/ES1LTlnpLMk) [Github](https://github.com/jennybc/how-to-name-files#how-to-name-files)
+
+6. Data Science Tutorial - Project Structure [youtube](https://www.youtube.com/watch?v=MaIfDPuSlw8) 
+
+7. Project organization by Nikola [html website](http://nikola.me/folder_structure.html) - includes downloadable template for project structure
+
+## Project structure, documenting, and naming things 2
+
+8. **Cookie Cutter Data Science** [github](https://github.com/drivendataorg/cookiecutter-data-science) A logical, reasonably standardized but flexible project structure for doing and sharing data science work.
+
+Cookiecutter Data Science (CCDS) is a tool for setting up a data science project template that incorporates best practices. To learn more about CCDS's philosophy, visit the [project homepage](https://cookiecutter-data-science.drivendata.org/).
+
+## Markdown Resources
+
+- [Markdown Tutorial](https://www.markdowntutorial.com/)
+- [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/) 
+- [Ultimate Markdown Cheatsheet](https://github.com/lifeparticle/Markdown-Cheatsheet)
+- [Awesome Markdown](https://github.com/mundimark/awesome-markdown)
+
+## Quarto, Jupyter, and RStudio Resources
+
+1. [JupyterLab Documentation](https://jupyterlab.readthedocs.io/en/stable/)
+
+2. [RStudio Documentation](https://support.rstudio.com/hc/en-us)
+
+3. [Quarto for Combining Python and R](https://quarto.org/docs/rstudio/)
+
+# Tutorial Authoring using R and Quarto
+
+## Before we start...
+
+**Did you have any problems** 
+
+1. Getting a GitHub account setup [Sign up](https://github.com/)
+
+2. [Downloading Github Desktop](https://desktop.github.com/download/)
+
+3. Having R-studio downloaded and updated [RStudio Download](https://posit.co/download/rstudio-desktop/)
+
+4. Downloading Quarto [Getting Started](https://quarto.org/docs/get-started/)
+
+## Authoring using R and Quarto
+
+GO TO THIS LINK [https://quarto.org/docs/manuscripts/](https://quarto.org/docs/manuscripts/)
+
+Follow along with me as I go through the tutorial, I can walk around and answer questions
+
+## Other Great Tutorials:
+
+
+- [Getting Started With Quarto - 22min Youtube Video](https://www.youtube.com/watch?v=_f3latmOhew&t=2s)
+- [Quarto for Academics - 20 min Youtube video](https://www.youtube.com/watch?v=EbAAmrB0luA)
+- [Quarto online workshop 5 hours of content](https://quarto.org/docs/blog/posts/2024-05-28-conf-workshops/) 
+
+
+
+
+
+nity.

@@ -1,0 +1,8 @@
+---
+title: "Publication Title"
+author: "Author"
+---
+
+# Description
+
+Lineaments are linear or curvilinear surface features...

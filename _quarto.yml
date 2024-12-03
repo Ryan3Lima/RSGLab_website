@@ -4,8 +4,8 @@ project:
 website: 
   page-navigation: true
   title: "Applied Remote Sensing" 
-  site-url: "https://ryan3lima.github.io/AppliedRemoteSensingNAU/" 
-  repo-url: https://github.com/Ryan3Lima/AppliedRemoteSensingNAU
+  site-url: "https://ryan3lima.github.io/RSGLab_website/" 
+  repo-url: https://https://github.com/Ryan3Lima/RSGLab_website
   repo-actions: [edit, issue]
   
   page-footer:
@@ -31,13 +31,16 @@ website:
     contents:
       - href: index.qmd
         text: Welcome
-      - section: Lectures/index.qmd
+      - section: Lectures
         contents: 
-          - Lectures/HLS_Harmonized_landsat_and_Sentinal.qmd
-      - section: Lab-Exercises/index.qmd
+          - Lectures/Open-Data-and-Quarto-Tutorial.qmd
+      - section: Datasets
         contents: 
-          - Lab-Exercises/Lab-2.qmd
-          - Lab-Exercises/Lab-X-HLS.qmd
+          - Datasets/Karst-Lineaments-AZ.qmd
+      - section: Recent-Publications
+        contents: 
+          - Recent-Publications/Publication_xxxx2024.qmd
+
 
 
 

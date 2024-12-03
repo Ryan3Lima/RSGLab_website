@@ -2,3 +2,7 @@
 title: Lectures
 ---
 
+# Applied Remote Sensing
+
+1. [Harmonized Landsat and Sentinal](https://ryan3lima.github.io/AppliedRemoteSensingNAU/Lectures/HLS_Harmonized_landsat_and_Sentinal.html#/title-slide) 
+
