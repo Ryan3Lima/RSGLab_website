@@ -1,0 +1,58 @@
+project: 
+  type: website
+  
+website: 
+  page-navigation: true
+  title: "Applied Remote Sensing" 
+  site-url: "https://ryan3lima.github.io/AppliedRemoteSensingNAU/" 
+  repo-url: https://github.com/Ryan3Lima/AppliedRemoteSensingNAU
+  repo-actions: [edit, issue]
+  
+  page-footer:
+    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    left: "&copy; CC-By Openscapes, 2024"
+    
+  sidebar:
+    logo: "images/NAU_School of Informatics, Computing, and Cyber Systems_primary_282_3514 (1).png"
+    pinned: true
+    align: center
+    tools: 
+      - icon: globe
+        href: https://sites.google.com/a/nau.edu/remote-sensing-lab/home
+        text: "Remote Sensing and Geoinformatics Lab at NAU"
+      - icon: github
+        href: https://github.com/Ryan3Lima/AppliedRemoteSensingNAU
+        text: "Quarto website tutorial"
+       
+
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+        text: Welcome
+      - section: Lectures/index.qmd
+        contents: 
+          - Lectures/HLS_Harmonized_landsat_and_Sentinal.qmd
+      - section: Lab-Exercises/index.qmd
+        contents: 
+          - Lab-Exercises/Lab-2.qmd
+          - Lab-Exercises/Lab-X-HLS.qmd
+
+
+
+format:
+  html:
+    theme:
+      light: [cosmo, theme.scss] # from https://github.com/sta210-s22/website/blob/main/_quarto.yml
+      dark: [cosmo, theme-dark.scss]
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+
+filters:
+  - include-files.lua
+  - quarto
+
+  

@@ -1,0 +1,750 @@
+[
+  {
+    "objectID": "transition-from-rmarkdown.html",
+    "href": "transition-from-rmarkdown.html",
+    "title": "Transition from RMarkdown",
+    "section": "",
+    "text": "You may already have workflows in RMarkdown and are interested in transitioning to Quarto. There’s no hurry to migrate to Quarto. Keep using Rmarkdown and when you’re ready the migration will be fine.\nHere are some notes as we migrate RMarkdown sites and books.\nTODO: translating R code chunks"
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html#bookdown-to-quarto",
+    "href": "transition-from-rmarkdown.html#bookdown-to-quarto",
+    "title": "Transition from RMarkdown",
+    "section": "Bookdown to Quarto",
+    "text": "Bookdown to Quarto\nConverting a Bookdown book to Quarto is slightly more involved than converting a website. A book has chapters whose order must be defined, and likely has citations and cross-refs. Still, conversion is not that hard.\nWe got some practice converting from Bookdown to Quarto by helping Gavin Fay convert his lab’s fantastic onboarding documentation, the Faylab Lab Manual. Here’s the GitHub view before and after.\nOur best first reference material for this was Nick Tierney’s Notes on Changing from Rmarkdown/Bookdown to Quarto. Nick shares some scripts in that post to automate some changes. In our case, the book was small enough that we made all changes manually. Quarto documentation was indispensable.\n\nExperimenting in a low-risk environment\nWe forked a copy of the Faylab Lab manual to the Openscapes organization, and worked in a branch so we could make changes relatively risk-free. We could always fork a new copy of the original if we “broke” something. (Caution: the default when making a pull request from a fork is to push changes to the original upstream repo, not your fork and it does this without warning if you have write-access to that repo.) With local previews it’s easy to test / play with settings to see what they do. We tended to make a change, Preview, then compare the look and functionality of the book to the original. It was helpful to comment out some elements of the configuration file _output.yml after their counterparts had been added to the Quarto configuration file _quarto.yml, or to confirm they were no longer needed, before making the drastic move of deleting them.\n\n\nThe conversion\nHere are the main steps to convert the Faylab Lab manual from Bookdown to Quarto.\nCreate new empty file called _quarto.yml and add book metadata there. The screenshots below\nSet project type as book.\nMove metadata out of index.qmd and into _quarto.yml. Title, author, and publication date were in index.qmd with date set using date: \"Last updated:r Sys.Date()\". Now these are in _quarto.yml with date set using date: last-modified. Note that having R code would require you to adjust code chunk options in the Quarto style (#|). This tripped us up a bit; see GitHub Actions.\nMove chapters listing out of _bookdown.yml and into _quarto.yml.\nAdd page footer to _quarto.yml.\nHere’s what ours looked like when we finished the steps above (_quarto.yml).\n\n\n\n\n\n\n\n\n\n_quarto.yml contents\n\n\n\n\n\n\n\nFaylab Lab Manual\n\n\n\n\n\nChange insertion of images from html style to Quarto style. (Note Quarto calls them “figures”, not “images”.) The following snippet will insert the GitHub octocat logo in a page:\n![](https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png){fig-align=\"left\" width=\"35px\"}\nChange all filename extensions .Rmd -&gt; .qmd (you could Preview after this change and see that the book looks the same). Note that Quarto works with .Rmd files just as well as it does .qmd, so this change is not urgent. In fact, if you have a lot of R code in your .Rmds (unlike the Faylab Lab Manual), there will be additional tinkering needed to make the code chunks happy.\n\n\nCitations\nThe Faylab Lab Manual cited two papers, presenting us with an opportunity to see how easy it is to add references to a Quarto book. Briefly, in the Visual Editor, Insert &gt; Citation &gt; DOI. Pasting the DOI or its full URL, we can insert the citation. This automatically creates a references.bib file and adds the full citations at the bottom of the chapter page (watch demo). In July 2022, we had to manually add a ## References heading, but this may not be necessary in future Quarto updates.\n\n\n\n\n\n\n\n\n\nInsert citation via its DOI using RStudio Visual Editor\n\n\n\n\n\n\n\n\n\n\nPublishing notes\nIf the book’s output is strictly html, there’s no need to specify output-dir in _quarto.yml. The output directory default is _book/, which is what we’d like. If we wanted other types of output like like PDF or EPUB, etc. those single file outputs are also written to the output-dir (Quarto docs).\nIf you currently have a docs/ folder, delete it.\nUpdate .gitignore to ignore _book/. At the same time, we have it ignore caches and a .quarto file:\n/.quarto/\n*_cache/\n_book/\nOnce all is settled, delete _output.yml.\nOnce the Openscapes fork was fully reviewed, we made a pull request from that to the main branch of the book’s repo. Once that was merged, we set up GitHub Actions to render the book. (TODO: instructions for GitHub Actions)\n\n\nGitHub Actions\nThis book was mostly prose and screenshots without any R code. This made the conversion from RMarkdown to Quarto likely more straightforward than if you also needed to adjust code chunk options in the quarto style (#|). Our initial GitHub Action to render the converted Faylab Lab Manual failed because we had a piece of R code - even though the code was commented out! This was resolved when we deleted the line."
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html#distill-to-quarto",
+    "href": "transition-from-rmarkdown.html#distill-to-quarto",
+    "title": "Transition from RMarkdown",
+    "section": "Distill to quarto",
+    "text": "Distill to quarto\nWe transitioned our events site from distill to quarto in May 2022 (github view before and after). We followed excellent notes and examples from Nick Tierney and Danielle Navarro.\nAfter we had changed all the files, the Build tab in the RStudio IDE still showed “Build website” rather then “Render Website” and “Preview Website”, and would error when we pushed them (because that button was expecting a distill site, not a quarto site). To fix this, we updated the .Rproj file. Clicking on the .Rproj file in the RStudio IDE will open a dialog box where you can click things you want (you can also open these in a text editor or from the GitHub website to see the actual text). To fix this situation with the Build tab: Project Options &gt; Build Tools &gt; Project Build Tools &gt; None.\nLooking at files /posts/_metadata.yml and _quarto.yml helps see where things are defined. For example, to make event post citations appear, we added citation: true to /posts/_metadata.yml and in _quarto.yml under the website key we set site-url: https://openscapes.github.io/events. We deleted footer.html used with distill because footer is now defined in quarto.yml.\n\nPublishing notes\n\nBackground: Our distill site had been set up to output to a docs folder, and had GitHub Settings &gt; Pages set to look there rather gh-pages branch. (Julie note: this was a new-to-me capability when we set up the events distill site in Spring 2021 so I had forgotten that was an option). We’ve inititally kept this same set-up for now with our events page in _quarto.yml: output-dir: docs. However, this is sub-optimal; better to not have to commit and push these files but to instead have a GitHub Action generate them upon a commit. So the following is what we did -\n\nDon’t specify output-dir in _quarto.yml. The output directory default is _site/, which is what we’d like.\nIf you currently have a docs/ folder (like we did as we were experimenting), delete it.\nUpdate .gitignore to ignore _site/. At the same time, we have it ignore caches and a .quarto file:\n/.quarto/\n*_cache/\n_site/\nPush these changes, merge into main.\nOn GitHub.com, in your repo, set up GitHub publishing\nFollow instructions from the explore and setup chapter."
+  },
+  {
+    "objectID": "transition-from-rmarkdown.html#troubleshooting",
+    "href": "transition-from-rmarkdown.html#troubleshooting",
+    "title": "Transition from RMarkdown",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nGitHub Action fails, says you need RMarkdown but you don’t have R code!\nAnd you changed all .Rmds to .qmds!\nYou likely have a few setup code chunks from RMarkdown, that look like this:\n{r setup, include=FALSE}\nknitr::opts_chunk$set(echo = FALSE)\nYou can find them by opening each of your files and having a look, or use GitHub’s search for the keyword knitr"
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html",
+    "href": "quarto-workflows/jupyter.html",
+    "title": "From Jupyter",
+    "section": "",
+    "text": "You can interact with Quarto through JupyterLab or JupyterHub. Your Jupyter setup will involve .ipynb notebooks and the command line. Quarto’s JupyterLab tutorials has great instructions on getting started with JupyterLab, including computations and authoring.\nHere we will demonstrate how to work with this Quarto tutorial site in JupyterHub and add a Jupyter Notebook (.ipynb file). This example uses the NASA-Openscapes JupyterHub that already has all python environments as well as Quarto installed."
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#setup",
+    "href": "quarto-workflows/jupyter.html#setup",
+    "title": "From Jupyter",
+    "section": "Setup",
+    "text": "Setup\n\nJupyterHub\nOur JupyterHub is already setup with python environments as well as Quarto (through nasa-openscapes/corn), so there is no further installation required.\n\n\nClone your repo\nYou’ll start by cloning your repository into JupyterHub. Do this by opening a terminal (File &gt; New &gt; Terminal). In the Terminal, git clone your repository and cd into it:\ngit clone https://github.com/openscapes/quarto-website-tutorial\ncd quarto-website-tutorial\n\n\nInstall Quarto\nNot needed - Quarto is already installed on the NASA-Openscapes JupyterHub! But to install elsewhere you would do so from https://quarto.org/docs/get-started/.\nQuarto is a Command Line Interface (CLI), like git. Once download is complete, follow the installation prompts on your computer like you do for other software. You won’t see an application to click on when it is installed.\nNote for Mac users: If you do not have administrative privileges, please select “Install for me only” during the Destination Selection installation step (you will first click on “Change Install Location” at the Installation Type step).\nYou can check to confirm that Quarto is installed properly from the command line:\nquarto check install\n\n\n\n\n\n\nAdditional checks\n\n\n\n\n\nYou can also run:\n\nquarto check knitr to locate R, verify we have the rmarkdown package, and do a basic render\nquarto check jupyter to locate Python, verify we have Jupyter, and do a basic render\nquarto check to run all of these checks together\n\n\n\n\n\n\n\n\n\n\nHistorical aside: Install Quarto in a docker container\n\n\n\n\n\nIn Summer 2021 some NASA Mentors trying to install quarto locally was not an option, but they were able to install it inside a container using the following Dockerfile:\n#| fold: true\n#| summary: \"Show the Dockerfile\"\n\n##############################\n# This Dockerfile installs quarto and then runs quarto serve against the\n# internal /home/quarto/to_serve.\n#\n# BUILD\n# -----\n# To build this container, run\n#\n#     docker build -t quarto_serve .\n#\n# Add the --no-cache option to force docker to build fresh and get the most\n# recent version of quarto.\n#\n#\n# RUN\n# ---\n# 1. Find the directory you want quarto to serve. Let's call this /PATH/TO/earthdata-cloud-cookbook.\n# 2. Run docker:\n#\n#     docker run --rm -it -p 4848:4848 -v /PATH/TO/earthdata-cloud-cookbook:/home/quarto/to_serve quarto_serve\n#\n# 3. Open your browser and go to http://127.0.0.1:4848/\n#\n##############################\n\nFROM ubuntu:hirsute\n\n######\n# Install some command line tools we'll need\n######\nRUN apt-get update\nRUN apt-get -y install wget\nRUN apt-get -y install gdebi-core\nRUN apt-get -y install git\n\n\n######\n# Install quarto (https://quarto.org/)\n######\n\n# This is a quick and dirty way of getting the newest version number from\n# https://github.com/quarto-dev/quarto-cli/releases/latest. What's happening is\n# we're pulling the version number out of the redirect URL. This will end up\n# with QVER set to something like 0.2.11.\nRUN QVER=`wget --max-redirect 0 https://github.com/quarto-dev/quarto-cli/releases/latest 2&gt;&1 | grep \"Location\" | sed 's/L.*tag\\/v//' | sed 's/ .*//'` \\\n    && wget -O quarto.deb \"https://github.com/quarto-dev/quarto-cli/releases/download/v$QVER/quarto-$QVER-amd64.deb\"\nRUN gdebi -n quarto.deb\n\n# Run this to make sure quarto installed correctly\nRUN quarto check install\n\n\n######\n# Create a non-root user called quarto\n######\nRUN useradd -ms /bin/bash quarto\nUSER quarto\nRUN mkdir /home/quarto/to_serve\nWORKDIR /home/quarto/to_serve\n\n\n######\n# Start quarto serve\n######\n\nCMD quarto serve --no-browse --host 0.0.0.0 --port 4848"
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#quarto-preview",
+    "href": "quarto-workflows/jupyter.html#quarto-preview",
+    "title": "From Jupyter",
+    "section": "Quarto preview",
+    "text": "Quarto preview\nLet’s start off by previewing our quarto site locally. In Terminal, type quarto preview, which will provide a URL with a preview of our site!\nquarto preview\n# Preparing to preview\n# Watching files for changes\n# Browse at https://openscapes.2i2c.cloud/user/jules32/proxy/4593/\nCopy this URL into another browser window; and arrange them so you can see them both. I make a bit more space in Jupyter by collapsing the left file menu by clicking on the file icon at the top of the left sidebar.\n\n\n\n\n\n\nMake a small change and preview it\nNow we’ll be able to see live changes in the preview as we edit in our .md files. Let’s try it: Change the date in index.md by opening it from the file directory. Change to today’s date, and save. Your preview window will refresh automatically! If it does not, you can also refresh the page manually. The refreshed previewed site will now display your changes!"
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#create-a-new-.ipynb-page",
+    "href": "quarto-workflows/jupyter.html#create-a-new-.ipynb-page",
+    "title": "From Jupyter",
+    "section": "Create a new .ipynb page",
+    "text": "Create a new .ipynb page\nLet’s add a new page to our site. Instead of an .md file like the others, let’s add a .ipynb file.\nFile &gt; New &gt; Notebook. Accept the default kernel by clicking Select.\n\nFirst chunk: raw yaml\nBy default, this Notebook will give us a first chunk that is code. Let’s change it to raw so that we can write our yaml at the top.\n\n\n\n\n\nIn our Raw code chunk, let’s write the title of this document. We need three dashes --- on separate lines preceding and following the title:, which you can name as you’d like.\n---\ntitle: Python Example\n---\n\n\nSecond chunk: Markdown\nLet’s add a new chunk that is Markdown so we can write some description of what this page will be.\nClick the + symbol at the top of the document, and this will add a new chunk, which by default again is a Code chunk. Change it to a Markdown Chunk following the steps we did above when switching to Raw.\nHere, write a little bit of text in Markdown. Since your title is effectively a level-1 header, avoid using level-1 headers in the rest of your document. Here is some example text I wrote:\n## Introduction\n\nThis example has some Python code that will be a part of our Quarto site.\n\n\nThird chunk: Code\nNow let’s create a new chunk with the default Code setting.\nPaste the following code (or write some of your own to test):\n#| label: fig-polar\n#| fig-cap: \"A line plot on a polar axis\"\nimport numpy as np\nimport matplotlib.pyplot as plt\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\nNow, go ahead and execute this code chunk like you normally would, by clicking the cursor in a code block and clicking the sideways “play” triangle to run the selected cells (and advance to the next cell). This code produces a plot.\nNote that the code runs as it normally would; the code options in the comments are just comments.\n\n\nSave your file\nSave your document - I’ll call mine python-example.ipynb in the main repository."
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#update-_quarto.yml",
+    "href": "quarto-workflows/jupyter.html#update-_quarto.yml",
+    "title": "From Jupyter",
+    "section": "Update _quarto.yml",
+    "text": "Update _quarto.yml\nNow we’ll add python-example.ipynb to our _quarto.yml file; this is where we register of all files to include in our site. Let’s add it after the section called “Basic Workflows”.\nOpen _quarto.yml by clicking on it from the file directory.\nScroll down to review the current contents in the sidebar: section. It’s there we see all the file arrangement that we see in the previewed site.\nAdd - python-example.ipynb to line 46, making sure that your indentation aligns with the other pages.\n\n\n\n\n\nYou’ll see that our new page shows up in our Preview, and the code is executed since we did that in the Jupyter Notebook itself. By default, Quarto will not execute code chunks since your computations will likely become more complex and you will want to control when they are executed (or “run”).\nSince Quarto is still previewing our website and the python-example.ipynb, the plot also displays in the notebook after the code is run and the file is saved, as shown below.\n\n\n\n\n\nSo, your normal workflow for creating and running code blocks in your Jupyter Notebook is the same one you’ll use as Quarto displays the preview."
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#quarto-render",
+    "href": "quarto-workflows/jupyter.html#quarto-render",
+    "title": "From Jupyter",
+    "section": "Quarto render",
+    "text": "Quarto render\nSo far we have used Quarto preview to view our website as we develop it. Quarto render will build the html elements of the website that we can see when we preview. Rendering will format the markdown text and code nicely as a website (or however is indicated in the _quarto.yml).\nBy default, Quarto render does not execute code in a Jupyter notebook. It will never run .ipynb files unless you tell it to.\n\nRender whole notebook\nIf you would like it to specifically execute code in a Jupyter notebook, you can do so in Terminal.\nOur Terminal is still busy previewing our website, so let’s open a new Terminal.\nFile &gt; New &gt; Terminal. Then type:\ncd quarto-website-tutorial\nquarto render python-example.ipynb --execute"
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#authoring-tips",
+    "href": "quarto-workflows/jupyter.html#authoring-tips",
+    "title": "From Jupyter",
+    "section": "Authoring tips",
+    "text": "Authoring tips\nQuarto.org has details about authoring, including specific instructions about authoring in Jupyter: quarto.org/docs/reference/cells/cells-jupyter."
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#commit-and-push",
+    "href": "quarto-workflows/jupyter.html#commit-and-push",
+    "title": "From Jupyter",
+    "section": "Commit and push!",
+    "text": "Commit and push!\nCommitting and pushing will make the changes you see locally live on your website (using the GitHub Action we set up earlier)."
+  },
+  {
+    "objectID": "quarto-workflows/jupyter.html#troubleshooting",
+    "href": "quarto-workflows/jupyter.html#troubleshooting",
+    "title": "From Jupyter",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\nMy changes don’t show up in preview\nMake sure you’ve saved your file! There might be a slight delay depending on your JupyterHub/Lab setup.\n\n\nQuarto render hangs / does not complete\nCheck the specific notebook, are there any `—` throughout to denote line breaks rather than yaml? They might be causing the issue; consider deleting those.\nAlso check how long the first raw cell is. Are there level-1 headers (#)? Try removing them."
+  },
+  {
+    "objectID": "quarto-workflows/browser.html",
+    "href": "quarto-workflows/browser.html",
+    "title": "From the Browser",
+    "section": "",
+    "text": "A workflow from the browser if good for getting started (since you do not need to install additional software) and for making small contributions, but is definitely limited. Once you feel comfortable here, you can move to a different setup.\nHere’s an example of editing content on an existing page."
+  },
+  {
+    "objectID": "quarto-workflows/browser.html#edit-content-on-an-existing-page",
+    "href": "quarto-workflows/browser.html#edit-content-on-an-existing-page",
+    "title": "From the Browser",
+    "section": "Edit content on an existing page",
+    "text": "Edit content on an existing page\nLet’s change the date on the home page of this website.\nIn your repository, navigate to index.md. Then, click the pencil icon in the top right to edit directly.\n\n\n\n\n\nWe are now in the “Edit file” tab of the editor, where we can make modifications. Let’s change the date to today’s date. Click the “Preview” tab to see your changes. You can even check the “Show diff” box on the right side to see the changes you’ve made.\n\n\n\n\n\nWhile you’re here, see if there are additional changes to the text you’d like to make. Maybe changing the title or author at the top, or for the main text on the home page of the website.\nOur index.md file is written in Markdown, which enables you to make simple text formatting. As you go back and forth from “Edit file” to “Preview”, notice the patterns of how the Markdown text looks when it is as source (“Edit file”) and when it is formatted (“Preview”). For example, in Markdown, you can make text as a header with # symbols, bold or italic with * symbols, and hyperlinks with [](). Notice that spacing is important: for example, there are carriage returns (when you hit the “return” key) before any bullet points. You can learn the short list of Markdown rules here: https://quarto.org/docs/authoring/markdown-basics."
+  },
+  {
+    "objectID": "quarto-workflows/browser.html#commit-and-publish",
+    "href": "quarto-workflows/browser.html#commit-and-publish",
+    "title": "From the Browser",
+    "section": "Commit and publish",
+    "text": "Commit and publish\nCommit your changes by scrolling to the bottom of the page and writing a commit message - a note to yourself and others about what changes you made. Write your commit message and then click the green “Commit changes” button.\n\n\n\n\n\nNow, click back to the main page of your GitHub repository. You should see the orange dot confirming your website is published. You’ll have to wait for the GitHub Action to tell quarto to build your site for you to see the update, but it will be there!"
+  },
+  {
+    "objectID": "quarto-workflows/browser.html#limitations",
+    "href": "quarto-workflows/browser.html#limitations",
+    "title": "From the Browser",
+    "section": "Limitations",
+    "text": "Limitations\nWhile awesome that we can edit using GitHub directly from the browser, there are obvious limitations. One is that to see your edits show up in your book, you have to publish using the GitHub Action. This is slow. Another limitation is that we can only work on one file at a time and commit them each separately, which also is slow. Using additional software can make things much better, as we explore in subsequent chapters."
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#introduction",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#introduction",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Introduction",
+    "text": "Introduction",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#resources-and-sources",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#resources-and-sources",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Resources and Sources",
+    "text": "Resources and Sources\n\nData in Harmony: NASA’s Harmonized Landsat and Sentinel-2 Project\nHLS Overview - NASA Earth Data - LPDAAC\nHarmonized Landsat Sentinel-2 (HLS) Product User Guide\nHLS Data Resources",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#resources-and-sources-continued",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#resources-and-sources-continued",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Resources and Sources continued",
+    "text": "Resources and Sources continued\n\nHLS Python Tutorial\nHLS R Tutorial",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#harmonized-landsat-and-sentinel-2-hls",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#harmonized-landsat-and-sentinel-2-hls",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Harmonized Landsat and Sentinel-2 (HLS)",
+    "text": "Harmonized Landsat and Sentinel-2 (HLS)\n\nseamless surface reflectance records from the operational land imager (OLD) aboard Landsat 8/9 and the multi-spectral instrument (MSI) aboard sentinal 2A/B\nHLS Version 2.0 available with global coverage (except Antartica)\n3-day return at equator, more frequent at higher latitutdes\n\nThe combined measurement enables global observations of the land every 2–3 days at 30 meter (m) spatial resolution. The HLSS30 and HLSL30 products are gridded to the same resolution and Military Grid Reference System (MGRS) tiling and are “stackable” for time series analysis.",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "HLS",
+    "text": "HLS\nAdvantages of HLS\n\n\nIncreased temporal frequency\nCommon gridding\nUnified atmospheric correction\nIllumination & view angle normalization\nSpectral bandpass adjustment",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#potential-applications",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#potential-applications",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Potential Applications",
+    "text": "Potential Applications\n\n\nActive Fires\nSnow Extent\nAgriculture\nInland flooding\nUrban Applications",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#naming-conventions",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#naming-conventions",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Naming Conventions",
+    "text": "Naming Conventions\nIn this example of a swath product, the filename HLS.S30.T60HTE.2022103T222539.v2.0.B01.tif indicates:\n\n\nHLS.S30 – Product Short Name\nT60HTE – MGRS Tile ID (T+5-digits)\n2022103 – Julian Date of Acquisition (YYYYDDD)\nT222539– Time of Acquisition (HHMMSS)\nv2.0 – Collection Version\nB01 – Spectral Band, Angle Band or QA(Fmask)\ntif – Data Format (Cloud Optimized GeoTiff)",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#tiling-system",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#tiling-system",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Tiling System",
+    "text": "Tiling System\nThe HLS tiling system is identical to the one used for Sentinel-2. The tiles’ dimensions are 109.8 km squares with an overlap of 4,900 m on each side. The system is aligned with the Military Grid Reference System (MGRS), and its naming convention is derived from the UTM (Universal Transverse Mercator) system. The UTM system divides the Earth’s surface into 60 vertical zones. Each UTM zone has a vertical width of 6° of longitude and horizontal width of 8° of latitude, as shown in the map below. Each UTM zone is subdivided into MGRS 110 x 110 km zones.",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls-data-processing-1",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls-data-processing-1",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "HLS Data Processing 1",
+    "text": "HLS Data Processing 1\n\n\nHLS uses a processing chain involving several separate radiometric and geometric adjustments, with a goal of eliminating differences in retrieved surface reflectance arising solely from differences in instrumentation.\nInput data products from Landsat 8/9 (Collection 2 Level 1T top-of-atmosphere reflectance or top-of-atmosphere apparent temperature) and Sentinel-2 (L1C top-of-atmosphere reflectance) are ingested for HLS processing.\nA series of radiometric and geometric corrections are applied to convert data to surface reflectance, adjust for BRDF differences, and adjust for spectral bandpass differences.",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls-data-processing-2",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls-data-processing-2",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "HLS Data Processing 2",
+    "text": "HLS Data Processing 2\nThree types of products are then generated:\n1. S10 products – atmospherically corrected Sentinel-2 images in their native resolution and geometry;\nThe harmonized products\n2. HLSS30\n3. HLSL30\n\nThese products have been radiometrically harmonized to the maximum extent and then gridded to a common 30-meter UTM basis using the Sentinel-2 tile system.\n\n\nNote: that S10 products are not normally archived. The S30 and L30 products are resampled as needed to a common 30-meter resolution UTM projection and tiled using the Sentinel-2 Military Grid Reference System (MGRS) UTM grid.",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls-data-processing-3",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#hls-data-processing-3",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "HLS Data Processing 3",
+    "text": "HLS Data Processing 3\n\nLP DAAC distributes both the L30 and S30 products:\nS30: MSI harmonized surface reflectance resampled to 30 m into the Sentinel-2 tiling system and adjusted to Landsat 8/9 spectral response function.\nL30: OLI harmonized surface reflectance and Top-of-Atmosphere (TOA) brightness temperature resampled to 30 m into the Sentinel-2 tiling system.",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#temporal-coverage",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#temporal-coverage",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Temporal Coverage",
+    "text": "Temporal Coverage\n\n\n\nData Source\nHLS Start Date\n\n\n\n\nLandsat-8\n2013-04-11\n\n\nSentinel-2A\n2015-11-30\n\n\nSentinel-2B\n2017-07-05\n\n\nLandsat-9\n2021-10-31",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#spectral-bands",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#spectral-bands",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Spectral bands",
+    "text": "Spectral bands\n\n\n\n\n\n\n\n\n\n\n\n\nHLS Band Code Name L30\nHLS Band Code Name S30\nOLI Band Number\nMSI Band Number\nWavelength (micrometers)\nMidpoint Wavelength\nBand\n\n\n\n\nband01\nB01\n1\n1\n0.43 – 0.45\n0.44\nCoastal Aerosol\n\n\nband02\nB02\n2\n2\n0.45 – 0.51\n0.48\nBlue\n\n\nband03\nB03\n3\n3\n0.53 – 0.59\n0.56\nGreen\n\n\nband04\nB04\n4\n4\n0.64 – 0.67\n0.655\nRed\n\n\n-\nB05\n-\n5\n0.69 – 0.71\n0.7\nRed-Edge 1\n\n\n-\nB06\n-\n6\n0.73 – 0.75\n0.74\nRed-Edge 2\n\n\n-\nB07\n-\n7\n0.77 – 0.79\n0.79\nRed-Edge 3\n\n\n-\nB08\n-\n8\n0.78 – 0.88\n0.83\nNIR Broad\n\n\nband05\nB8A\n5\n8A\n0.85 – 0.88\n0.865\nNIR Narrow\n\n\nband06\nB11\n6\n11\n1.57 – 1.65\n1.61\nSWIR 1\n\n\nband07\nB12\n7\n12\n2.11 – 2.29\n2.2\nSWIR 2\n\n\n-\nB09\n-\n9\n0.93 – 0.95\n0.94\nWater Vapor\n\n\nband09\nB10\n9\n10\n1.36 – 1.38\n1.37\nCirrus\n\n\nband10\n-\n10\n-\n10.60 – 11.19\n10.895\nThermal Infrared 1\n\n\nband11\n-\n11\n-\n11.50 – 12.51\n12.005\nThermal Infrared 2",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#note-known-issues",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#note-known-issues",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Note: Known Issues",
+    "text": "Note: Known Issues\nThe list of HLS v2.0 Data Known Issues is maintained at LP DAAC\nAlthough HLS does not use the Landsat Collection-2 surface reflectance data directly, it uses an atmospheric correction code that is similar to the one used to produce the Landssat Collection-2 surface reflectance data. Therefore, the HLS surface reflectance shares the same problems present in Collection-2; see the heading “Surface Reflectance Issues” at landsat-collection-2-known-issues.",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-1",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-1",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 1",
+    "text": "Lets Explore this Dataset - Step 1\nGo to:\nworldview.earthdata.nasa.gov",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-2",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-2",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 2",
+    "text": "Lets Explore this Dataset - Step 2\nTurn on all reference layers:",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-3",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-3",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 3",
+    "text": "Lets Explore this Dataset - Step 3\nRemove all baselayers",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-4",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-4",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 4",
+    "text": "Lets Explore this Dataset - Step 4\n\nClick + Add layers\n\nSelect\n\nScience Disciplines\nLand Surface\nCorrected Reflectance",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-4b",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-4b",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 4b",
+    "text": "Lets Explore this Dataset - Step 4b",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-5",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-5",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 5",
+    "text": "Lets Explore this Dataset - Step 5\nSelect\n\nLand Surface Reflectance\nHLS: Landsat 8/9 OLI\nReflectance (Nadir BRDF adjusted)",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-5b",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-5b",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 5b",
+    "text": "Lets Explore this Dataset - Step 5b",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-6",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#lets-explore-this-dataset---step-6",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Lets Explore this Dataset - Step 6",
+    "text": "Lets Explore this Dataset - Step 6\nRepeat for HLS: Sentinal 2A/2B MSI",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#explore-step-7",
+    "href": "Lectures/HLS_Harmonized_landsat_and_Sentinal.html#explore-step-7",
+    "title": "Harmonized Landsat and Sentinel-2 Data",
+    "section": "Explore Step 7",
+    "text": "Explore Step 7\n\nTry different dates\nTry comparison Tool\nGet download link for data you want",
+    "crumbs": [
+      "Lectures",
+      "Harmonized Landsat and Sentinel-2 Data"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#overview",
+    "href": "Lab-Exercises/Lab-X-HLS.html#overview",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Overview",
+    "text": "Overview\nToday we are going to look at changes in vegetation greenness on the san Francisco peaks at the onset of fall and see if we can see a reduction of greenness as aspen start changing colors on the peaks.\nWe will look at Granule T12SVE for three dates:\n\n2019 Sept 30 - HLS.S30 Sentinal 2A/2B- Julian Day 2019273\n2019 October 5 - HLS.S30 Sentinal 2A/2B - Julian Day 2019278 (if time)\n2019 October 9 - HLS.L30 Landsat 8/9- Julian Day 2019282",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-1.-load-first-granule",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-1.-load-first-granule",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 1. Load First granule",
+    "text": "Step 1. Load First granule\n\nFirst we will load the granule HLS.S30.T12SVE.2019273T181139.v2.0.B* looking the Flagstaff Area on September 30th 2019\n\n\nOpen ENVI 6.0\nOnce ENVI is Open, click File &gt; Open As &gt; Generic Formats &gt; TIFF\n\n\n\nNavigate to the dataset and open the following file:\n\n\nData Location: SOME_PATH/HLS/FallColorPeaks/JD2019273_20190930\n\n\nFilenames: HLS.S30.T12SVE.2019273T181139.v2.0.B01 through HLS.S30.T12SVE.2019273T181139.v2.0.B12\n\n\nSelect the bands B01 - B12",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-2.-build-band-stack",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-2.-build-band-stack",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 2. Build Band Stack",
+    "text": "Step 2. Build Band Stack\n\nIn the toolbox pane on the right side of the screen, in the search bar type “band stack”\n\n\n\nDouble click on “Build Band Stack” tool\nWhen it opens click on the elipse (…) icon next to the Input Rasters box\n\n\n\nwith your bands loaded from the previous step you should be able to his Select All, or highlight bands B12 - B01 if you have loaded additional images into ENVI previously\n\n\n\nClick OK\nNow you will want to re-sort the images so they are ordered from smallest to largest band number. Click on the Icon beneath the elipse that shows two blue crossing arrows to sort the bands\n\n\n\nNext click the elipse (…) icone next to the output raster box, to select a directory to save the band stack and name the output file\npick a place that makes sense to save the band stack. I created a directory in the FallColorPeaks directory called Stacks\nName your file someting descriptive like: HLS.S30.T12SVE_20190930_273_band_stack then click save\n\n\n\nNotice I included the date in the format I recognize and the Julian date to avoid confusion later on\n\n\nClick Ok to load and save the band stack\n\n\nYou should now see the band stack loaded though its probably some false color since by default it just loads the first three bands",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-3.-edit-header-file-names-and-wavelengths",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-3.-edit-header-file-names-and-wavelengths",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 3. Edit Header File (names and wavelengths)",
+    "text": "Step 3. Edit Header File (names and wavelengths)\n\nNote we are working with the S30 data so there are different bands than the L30 data, this is important when editing the header file\n\n\nIn the toobox search bar type “edit header”, and then double click on the Edit ENVI Header tool.\n\n\n\nWhen the Data Selection window pops up, choose the band stack and click OK\n\n\nChange the band names\n\nIn the display tab of the Edit ENVI Header window, click on the Bands one at a time and re-name them one at a time\n\nBand 1(Coastal_Aerosol:HLS.S30.T12SVE.2019273T181139.v2.0.B01.tif) = B01 Coastal Aerosol\nBand 2(Blue:HLS.S30.T12SVE.2019273T181139.v2.0.B02.tif) = B02 Blue\nBand 3 (Green:HLS.S30.T12SVE.2019273T181139.v2.0.B03.tif) = B03 Green\nBand 4 (Red:HLS.S30.T12SVE.2019273T181139.v2.0.B04.tif) = B04 Red\nBand 5 (Red_Edge1:HLS.S30.T12SVE.2019273T181139.v2.0.B05.tif) = B05 Red Edge 1\nBand 6 (Red_Edge2:HLS.S30.T12SVE.2019273T181139.v2.0.B06.tif) = B06 Red Edge 2\nBand 7 (Red_Edge3:HLS.S30.T12SVE.2019273T181139.v2.0.B07.tif) = B07 Red Edge 3\nBand 8 (NIR_Broad:HLS.S30.T12SVE.2019273T181139.v2.0.B08.tif) = B08 NIR Broad\nBand 9 (Water_Vapor:HLS.S30.T12SVE.2019273T181139.v2.0.B09.tif) = B09 Water Vapor\nBand 10 (Cirrus:HLS.S30.T12SVE.2019273T181139.v2.0.B10.tif) = B10 Cirrus\nBand 11 (SWIR1:HLS.S30.T12SVE.2019273T181139.v2.0.B11.tif) = B11 SWIR 1\nBand 12 (SWIR2:HLS.S30.T12SVE.2019273T181139.v2.0.B12.tif) = B12 SWIR 2\nBand 13 (NIR_Narrow:HLS.S30.T12SVE.2019273T181139.v2.0.B8A.tif) = B8A NIR Narrow\n\nNote: Band 13 is band 8A\n\n\nWhen you are finished renaming click OK, then re-open the Edit ENVI Header tool.\nAgain select the stack, but this time go to the spectral tab. It should be empty. Click the Add (+) button.\n\n\n\nIn the Add Metadata Items window, scroll down and select Wavelength and Wavelength Units then click OK\n\n\n\nChange the wavelength units to Micrometers\n\n\n\nThen one-by-one edit the bands to match the table below:\n\n\n\n\n\n\n\n\n\nHLS Band Code Name S30\nWavelength (Micrometers)\nBand\n\n\n\n\nB01\n0.44\nCoastal Aerosol\n\n\nB02\n0.48\nBlue\n\n\nB03\n0.56\nGreen\n\n\nB04\n0.655\nRed\n\n\nB05\n0.7\nRed-Edge 1\n\n\nB06\n0.74\nRed-Edge 2\n\n\nB07\n0.79\nRed-Edge 3\n\n\nB08\n0.83\nNIR Broad\n\n\nB09\n0.94\nWater Vapor\n\n\nB10\n1.37\nCirrus\n\n\nB11\n1.61\nSWIR 1\n\n\nB12\n2.2\nSWIR 2\n\n\nB8A\n0.865\nNIR Narrow",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-4.-display-the-image-in-true-color-rgb-optional",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-4.-display-the-image-in-true-color-rgb-optional",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 4. Display the Image in True-Color RGB (optional)",
+    "text": "Step 4. Display the Image in True-Color RGB (optional)\n\nWith your band stsack highlighted in the layer manager tab, click on the data manager (clip board) icon on the toolbar at the top\n\n\n\nClick to expand the Band Selection section in the Data Manager Window, then click on the Red, Green, and Blue Bands in order.\n\n\n\nOnce the proper bands are selected, hit the Load Data button\n(optional) you can try changing how the data is displayed by switching from 2% linear to Gaussian or others, you can also adjust the brightness and contrast",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-5.-calculate-evi---enhanced-vegetation-index-using-built-in-envi-tools",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-5.-calculate-evi---enhanced-vegetation-index-using-built-in-envi-tools",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 5. Calculate EVI - Enhanced Vegetation Index using Built-in ENVI tools",
+    "text": "Step 5. Calculate EVI - Enhanced Vegetation Index using Built-in ENVI tools\n\nWe can calculate EVI with bandmath, but we don’t actually have to, ENVI has a built in tool for this and it works well if you have edited your header file correctly.\n\n\nIn the toolbox search bar type ‘vegetation’ and then double click on the Vegetation Index Calculator tool.\n\n\n\nSelect your band stack from the Vegetation Indices Input File window\n\n![](Images/HLS_Step5_select_stack.PNG\n\nThere are a variety of indices you can choose from, by default they are all selected but we will choose just Enhanced Vegetation Index (Broadband Greenness)\n\n\nSelect Enhanced Vegetation Index (Broadband Greenness)\nSpecify an output location. I made a directory called EVI then named the file: EVI_HLS.S30.T12SVE.20190930_273\n\n\n\nClick OK to load and display the EVI layer",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-6.-repeat-steps-1---5-for-l30-granule-hls.l30.t12sve.2019282t180335.v2.0",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-6.-repeat-steps-1---5-for-l30-granule-hls.l30.t12sve.2019282t180335.v2.0",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 6. Repeat steps 1 - 5 for L30 granule HLS.L30.T12SVE.2019282T180335.v2.0",
+    "text": "Step 6. Repeat steps 1 - 5 for L30 granule HLS.L30.T12SVE.2019282T180335.v2.0\nNOTE THE BANDS ARE SLIGHTLY DIFFERENT SO CHANGE THE NAMES AND WAVELENGTHS AS SHOWN BELOW\nRename L30 bands Edit Header File\nBand 1(Coastal_Aerosol:HLS.L30.T12SVE.2019282T180335.v2.0.B01.tif) = B01 Coastal Aerosol\nBand 2(Blue:HLS.L30.T12SVE.2019282T180335.v2.0.B02.tif) = B02 Blue\nBand 3(Green:HLS.L30.T12SVE.2019282T180335.v2.0.B03.tif) = B03 Green\nBand 4(Red:HLS.L30.T12SVE.2019282T180335.v2.0.B04.tif) = B04 Red\nBand 5(NIR:HLS.L30.T12SVE.2019282T180335.v2.0.B05.tif) = B05 NIR\nBand 6(SWIR1:HLS.L30.T12SVE.2019282T180335.v2.0.B06.tif) = B06 SWIR 1\nBand 7(SWIR2:HLS.L30.T12SVE.2019282T180335.v2.0.B07.tif) = B07 SWIR 2\nNO BAND 8\nBand 8(Cirrus:HLS.L30.T12SVE.2019282T180335.v2.0.B09.tif) = B09 Cirrus\nBand 9(TIRS1:HLS.L30.T12SVE.2019282T180335.v2.0.B10.tif) = B10 TIRS1\nBand 10(TIRS2:HLS.L30.T12SVE.2019282T180335.v2.0.B11.tif) = B11 TIRS2\nChange Wavelengths Edit Header File\n\n\n\nHLS Band Code Name L30\nWavelength (micrometers)\nBand\n\n\n\n\nband01\n0.44\nCoastal Aerosol\n\n\nband02\n0.48\nBlue\n\n\nband03\n0.56\nGreen\n\n\nband04\n0.655\nRed\n\n\n-\n0.7\nRed-Edge 1\n\n\n-\n0.74\nRed-Edge 2\n\n\n-\n0.79\nRed-Edge 3\n\n\n-\n0.83\nNIR Broad\n\n\nband05\n0.865\nNIR Narrow\n\n\nband06\n1.61\nSWIR 1\n\n\nband07\n2.2\nSWIR 2\n\n\n-\n0.94\nWater Vapor\n\n\nband09\n1.37\nCirrus\n\n\nband10\n10.895\nThermal Infrared 1\n\n\nband11\n12.005\nThermal Infrared 2",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-7.-with-both-evi-layers-open-lets-change-the-color-scheme",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-7.-with-both-evi-layers-open-lets-change-the-color-scheme",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 7. With Both EVI layers open, lets change the color scheme",
+    "text": "Step 7. With Both EVI layers open, lets change the color scheme\n\nRight click on one of your EVI layers\nSelect Change Color Table\nChoose a color scheme you like, I hit More and selected Rainbow (or whatever you want)\n\n\n\nToggle the layers on and off or use the swipe tool at the top to compare the EVI at the two dates\n\n![]",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-8.-optional-use-roi-tool-to-quanitfy-differences",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-8.-optional-use-roi-tool-to-quanitfy-differences",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 8. (Optional) Use ROI tool to quanitfy differences",
+    "text": "Step 8. (Optional) Use ROI tool to quanitfy differences\n\nI suggest you close and restart ENVI at this point\n\n\nWith ENVI 6.0 ReOpened\nClick File &gt; Open\nNavigate to the directory you saved the EVI images in\nSelect One of the EVI image files ending in .HDR and click ok\n\n\n\nRepeat for the other image (open in new view if you want)\nClick on the ROI Icon at the top of the screen\nCick file &gt; Open\n\n\n\nNavigate to the Peaks Fall Colors Directory and click on one of the ROI files ending in .xml, or draw your own and save it\nChoose one of the EVI layers to open the ROI on\n\n\n\nOnce opened, click the calculator button on the ROI tool to calculate stats.\n\n\n\nSelect plot Histogram Enhanced Vegetation Index\n\n\n\nRepeat for the other EVI image and compare mean values, histogram, and mask count.\n\n\nImages with values greater than 1 (very high EVI) are masked out by default so higher mask count means higher greenness, EVI is best at looking at marginal changes",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-X-HLS.html#step-9.-try-other-vegetation-indicesoptional",
+    "href": "Lab-Exercises/Lab-X-HLS.html#step-9.-try-other-vegetation-indicesoptional",
+    "title": "Harmonized Landsat and Sentinal",
+    "section": "Step 9. Try other vegetation indices!!!!!(optional)",
+    "text": "Step 9. Try other vegetation indices!!!!!(optional)",
+    "crumbs": [
+      "Lab Exercises",
+      "Harmonized Landsat and Sentinal"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Applied Remote Sensing",
+    "section": "",
+    "text": "Welcome this is a draft site for the classes INF/EES/ENV 529",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#welcome",
+    "href": "index.html#welcome",
+    "title": "Applied Remote Sensing",
+    "section": "",
+    "text": "Welcome this is a draft site for the classes INF/EES/ENV 529",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#what-is-remote-sensing",
+    "href": "index.html#what-is-remote-sensing",
+    "title": "Applied Remote Sensing",
+    "section": "What is Remote sensing?",
+    "text": "What is Remote sensing?\nRemote sensing is the process of acquiring information about the Earth’s surface without direct physical contact, typically through the use of satellites, drones, or aircraft. It involves capturing data across various wavelengths of the electromagnetic spectrum, such as visible light, infrared, microwave, or ultraviolet, using sensors or cameras mounted on these platforms.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#applications-of-remote-sensing",
+    "href": "index.html#applications-of-remote-sensing",
+    "title": "Applied Remote Sensing",
+    "section": "Applications of Remote Sensing:",
+    "text": "Applications of Remote Sensing:\n\nEnvironmental Monitoring: Tracking changes in land use, deforestation, desertification, and urbanization.\nAgriculture: Monitoring crop health, soil moisture, and yield prediction.\nWater Resources: Measuring surface water levels, mapping wetlands, and tracking snow cover.\nDisaster Management: Assessing the impact of natural disasters like floods, hurricanes, and wildfires.\nClimate Studies: Monitoring glaciers, sea level rise, and temperature changes.\nGeology: Identifying mineral deposits, faults, and mapping landforms.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html",
+    "href": "Lab-Exercises/Lab-2.html",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "",
+    "text": "With this tutorial, we will load bands 1-7 from a Landsat 8 Image\nRequirements:",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#about-landsat-8",
+    "href": "Lab-Exercises/Lab-2.html#about-landsat-8",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "About Landsat 8",
+    "text": "About Landsat 8\nFrom the NASA.gov Landsat 8 Information Page:\n\nLandsat 8 launched on February 11, 2013, from Vandenberg Air Force Base, California, on an Atlas-V 401 rocket, with the extended payload fairing  (EPF) from United Launch Alliance, LLC. (The Landsat 8 Launch in Quotes.) The Landsat 8 satellite payload consists of two science instruments—the Operational Land Imager (OLI) and the Thermal Infrared Sensor (TIRS). These two sensors provide seasonal coverage of the global landmass at a spatial resolution of 30 meters (visible, NIR, SWIR); 100 meters (thermal); and 15 meters (panchromatic). Landsat 8 was developed as a collaboration between NASA and the U.S. Geological Survey (USGS). NASA led the design, construction, launch, and on-orbit calibration phases, during which time the satellite was called the Landsat Data Continuity Mission (LDCM). On May 30, 2013, USGS took over routine operations and the satellite became Landsat 8. USGS leads post-launch calibration activities, satellite operations, data product generation, and data archiving at the Earth Resources Observation and Science (EROS) center.\n\n\nQuick Facts\n\n\n\nLaunch Date: February 11, 2013\nSensors: OLI, TIRS\nAltitude: 705km\nInclination: \\(98\\textdegree\\)\nOrbit: Polar, sun-synchronous\nEquitorial Crossing Time: Nominally 10AM (+/- 15 minutes) local time (descending node)\nPeriod of Revolution: 99 minutes; ~14.5 orbits/day\nRepeat Coverage: 16 days\nData: 12-bit scaled to 16-bit intergers\n\n\n\n\n\nSource:https://landsat.gsfc.nasa.gov/satellites/landsat-8/: The OLI collects data for two new bands, a coastal/aerosol band (band 1) and a cirrus band (band 9), as well as the heritage Landsat multispectral bands. Additionally, the bandwidth has been refined for six of the heritage bands. The Thermal Instrument (TIRS) carries two additional thermal infrared bands. Note: atmospheric transmission values for this graphic were calculated using MODTRAN for a summertime mid-latitude hazy atmosphere (circa 5 km visibility).Graphic created by L.Rocchio & J.Barsi.",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-1.-start-envi-classic",
+    "href": "Lab-Exercises/Lab-2.html#step-1.-start-envi-classic",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 1. Start ENVI Classic",
+    "text": "Step 1. Start ENVI Classic\n\n1.1 In the search bar next to the windows icon type: “ENVI”\n\n * &gt; 1.2** Click on ENVI Classic 6.0\nENVI Classic will Start up and you will see a toolbar",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-2.-load-landsat-8-bands",
+    "href": "Lab-Exercises/Lab-2.html#step-2.-load-landsat-8-bands",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 2. Load Landsat 8 Bands",
+    "text": "Step 2. Load Landsat 8 Bands\nNext we will load landsat 8 bands 1-7. NOTE that when you download a landsat tile you get a seperate file for each band and also a .txt file containing metadata about the Landsat Product you have downloaded.\nRecall that Landsat8 OLI/TIRS has 11 Bands, we will only be working with bands 1-7 in this exercise Ultra-Blue to SWIR 2:\n\n\n\nSource:https://landsat.gsfc.nasa.gov/satellites/landsat-8/\n\n\n\n2.1 From the ENVI classic Toolbar –select File // Open External File // Generic Formats //\n\n\n\n2.2 Navigate to the location of the Landsat 8 bands on your computer or on a local drive\n\n\n2.3 Hold Shift and Select all files, they should all look like this: LC08_L2SP_037035_20210608_20210615_02_T1_SR_BN.TIF Note: N = 1-7\n\n\nNext you should see a new window pop up containing the available bands, each loaded as a seperate image with 1-Band each, we will combine them into a single image containing 7 bands in step 4 below.",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-3.-calibrate-each-band",
+    "href": "Lab-Exercises/Lab-2.html#step-3.-calibrate-each-band",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 3. Calibrate each band",
+    "text": "Step 3. Calibrate each band\nWe need to calibrate each individual band using the metadata and convert the DN (Digital Number) values to Radiance values. But now is also a good time to look at the meta-data file associated with the bands.\nFrom USGS Landsat Calibration & Validation :\n\nWhile Landsat satellites are well-designed and calibrated prior to launch, continuous calibration is required to offset degradation that may be caused by mechanical or electrical effects, or exposure to UV radiation. Calibration requires a comparison between the measuring instrument and an absolute reference standard known for accuracy. Validation of Landsat data is an ongoing effort\n\nCheck the website above for more information.\n\n3.1 Navigate to the Directory containing your band images in Explorer\n\n\n3.2 Create a new folder/directory called Calibrated … where we will store the calibrated files.\n\n\n3.3 – Select the metadata file LC08_L2SP_037035_20210608_20210615_02_T1_MTL.txt right-click the file and Open with Notepad or some text editor\n\n *** \nNear the bottom of the Meta Data File you will should see the following:\n\nMAP_PROJECTION = ‘UTM’ - this is the Universal Tranverse Mercator projection which uses \\(meters\\)\nDATUM = ‘WGS84’\nUTM_ZONE = 12\nGRID_CELL_SIZE_REFLECTIVE = 30.00 - (\\(meters\\) because of UTMs)\n\nNow that we have checked the Metadata and everything looks as expected lets Calibrate the Images. We will calibrate each image One-at-a-time\n\n3.4 From the ENVI classic Toolbar – Select: Basic Tools // PreProcessing // Calibration utilities // Landsat calibration\n\n\n\n\nLandsat Calibration\n\n\n\n3.5 Click on the first file and check to make sure it ends in *_B1.TIF*\n\n\n\n\nSelect and Calibrate Band 1\n\n\n\n3.6 rename the file LC08_B1_cal and save it to the ~somepath/Calibrated directory\n\n\nClick OK\n\n\n\n\nSave Calibrated band 1\n\n\n\n3.7 Repeat with band 2, making sure to click on the the file ending in “_B2.TIF”, rename the file “LC08_B2_cal”\n\n\nRepeat with bands 3 through 7\n\nWhen you are finished you Calibrated Directory should contain 14 files:\nLC08_BNcal; N = 1 - 7 LC08_BNcal.hdr; N = 1 - 7\n\n\n\nCalibrated Directory",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-4.-create-a-layerband-stack",
+    "href": "Lab-Exercises/Lab-2.html#step-4.-create-a-layerband-stack",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 4. Create a layer/band stack",
+    "text": "Step 4. Create a layer/band stack\nNow we need to load the calibrated bands into ENVI as a layer stack, or a multi-band image\n\n4.1 From the ENVI classic Toolbar – Select Basic Tools // Layer Stacking\n\n\n\n\nSelect Layer Stacking\n\n\nThe Layer Stacking Paremeters window will now open\n\n4.2 Click Import File on the Layer Stacking Parameters window then Navigate to your Calibrated Directory and select the calibrated bands 1 - 7\n\n\n\n\nSelect calibrated files\n\n\n\n4.3 Next click Reorder files and move them around so they are 1-7 from top to bottom.\n\n\n\n\nReorder Files\n\n\n\n4.4 Name the stack **LC08_B1_B7_cal_stack, save it in the Calibrated directory\n\nNotice on the right side of the Layer Stacking Paramters window that it confirms that the stack is UTM Zone 12, WGS84, and the pixel size is 30 meters.\n\n\n\nSave and compile stack\n\n\n\nClick OK",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-5.-open-stacked-image",
+    "href": "Lab-Exercises/Lab-2.html#step-5.-open-stacked-image",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 5. Open Stacked Image",
+    "text": "Step 5. Open Stacked Image\n\n5.1 Now go to your Avialable Bands List Window and click Load Band\n\nA Greyscale image will appear with three windows showing Band 1 (though its really band seven) I know it is confusing which is why in the next step we will reorder and rename the bands in the bands list.\n\n\n\nLoad Greyscale",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-6.-edit-band-names-attributes",
+    "href": "Lab-Exercises/Lab-2.html#step-6.-edit-band-names-attributes",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 6. Edit Band Names Attributes",
+    "text": "Step 6. Edit Band Names Attributes\n\n6.1 From the ENVI classic Toolbar – Select: File // Edit ENVI header\n\n\n6.2 When the Edit Header Input File window pops up, – Select LC08_B1_B7_cal_stack click OK\n\n\n6.3 When the Header Info window pops up, – Select Edit Attributes // Band Names\n\n\n6.4 When the Edit Band Name values window opens – Select the first Layer. It should be something like: Layer (TM Cal (Band 1:LC08_L2SP_037035_20210608_20210615_02_T1_SR_B7.TIF):LC08_B7_cal) replace that with Band_B7 and hit Enter on your keyboard orclick OK\n\n\nRepeat with bands 1-6 ensuring you are correctly naming the bands.\n\n\nOnce completed the Avilable Bands List window should show the new names and they should be in order 1-7 from top to bottom\n\n\n\n\nNew band names",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-7.-edit-band-attributes",
+    "href": "Lab-Exercises/Lab-2.html#step-7.-edit-band-attributes",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 7. Edit Band Attributes",
+    "text": "Step 7. Edit Band Attributes\nNext we will edit the attributes and change the units to wavelength and select the mean wavelength for each landsat band.\n\nBand 1 = mean(c(0.43,0.45)) = \\(0.44\\mu m\\)\nBand 2 = mean(c(0.45,0.51)) = \\(0.48\\mu m\\)\nBand 3 = mean(c(0.53,0.59)) = \\(0.56\\mu m\\)\nBand 4 = mean(c(0.64,0.67)) = \\(0.655\\mu m\\)\nBand 5 = mean(c(0.85,0.88)) = \\(0.865\\mu m\\)\nBand 6 = mean(c(1.57,1.655)) = \\(1.6125\\mu m\\)\nBand 7 = mean(c(2.11,2.29)) = \\(2.2\\mu m\\)\n\n\n7.1 From the ENVI classic Toolbar – Select: File // Edit ENVI header\n\n\n7.2 When the Edit Header Input File window pops up, – Select LC08_B1_B7_cal_stack click OK\n\n\nWhen the Header Info window pops up, – Select Edit Attributes // Wavelengths\n\n\n7.3 In the Edit Wavelength Values window – Select Band:1 :0.0000 and input the number for Band 1 from above (0.44) which is the mean wavelength or midpoint in the range of values for that band\n\n\n7.4Make sure to select Micrometers from the Wavelength/FWHM Units dropdown\n\n\n\n\nEdit Wavelength Values\n\n\n\nRepeat with other 7 bands using values from above and click OK\n\n\nwhen you are finished it should look like this:\n\n\n\n\nFinsihed step 7",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-8.-explore-the-image",
+    "href": "Lab-Exercises/Lab-2.html#step-8.-explore-the-image",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 8. Explore the Image",
+    "text": "Step 8. Explore the Image\n\n8.1 In the Available Bands List window, toggle from Gray Scale to RGB Color and Click Load RGB selecting Band_4 for R or Red, Band_3 for G or Green and Band_2 for B or Blue\n\nThree display windows should now pop up and be displaying the image in True Color RGB\n\n8.2 Click on the largest window and scroll to some spot on the map with your cursor right-click and select Cursor Location/Value and watch as the Data values for RG & B change as our scroll across the map.\n\n\n\n\nCursor Location/Value",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "Lab-Exercises/Lab-2.html#step-9.-display-different-band-combinations",
+    "href": "Lab-Exercises/Lab-2.html#step-9.-display-different-band-combinations",
+    "title": "Lab 2 - Getting your image ready for classification",
+    "section": "Step 9. Display different band combinations",
+    "text": "Step 9. Display different band combinations\n\n9.1 Have a look at some common band combinations used for RGB color display.\n\n\n\n\nPopular Band Combinations\n\n\nAt a minimum try:\n\nColor Infrared (CIR) using bands 5,4 & 3 for RG & B respectively\n\n\nFalse Color (Vegetation Analysis) using bands 6,5 & 4 for RG & B respectively",
+    "crumbs": [
+      "Lab Exercises",
+      "Lab 2 - Getting your image ready for classification"
+    ]
+  },
+  {
+    "objectID": "learning-more.html",
+    "href": "learning-more.html",
+    "title": "Learning more",
+    "section": "",
+    "text": "An excellent overview: Reproducible authoring with Quarto - Mine Çetinkaya-Rundel, Feb 2022 - slides, youtube\nA Quarto tip a day in June 2022, from Mine Çetinkaya-Rundel.\n\n\n\nOpenscapes Champions Lessons Series\nOpenscapes Approach Guide\n\nNASA Earthdata Cloud Cookbook\n\nSee many more examples at the quarto gallery!\n\n\n\nAre you making onboarding documentation? Check out The Fay Lab Manual (now in Quarto!) for inspiration on structure - you could also start there and make it your own."
+  },
+  {
+    "objectID": "learning-more.html#learn-more",
+    "href": "learning-more.html#learn-more",
+    "title": "Learning more",
+    "section": "",
+    "text": "An excellent overview: Reproducible authoring with Quarto - Mine Çetinkaya-Rundel, Feb 2022 - slides, youtube\nA Quarto tip a day in June 2022, from Mine Çetinkaya-Rundel.\n\n\n\nOpenscapes Champions Lessons Series\nOpenscapes Approach Guide\n\nNASA Earthdata Cloud Cookbook\n\nSee many more examples at the quarto gallery!\n\n\n\nAre you making onboarding documentation? Check out The Fay Lab Manual (now in Quarto!) for inspiration on structure - you could also start there and make it your own."
+  },
+  {
+    "objectID": "quarto-workflows/index.html",
+    "href": "quarto-workflows/index.html",
+    "title": "Quarto workflows",
+    "section": "",
+    "text": "How do you work in Quarto? You can use whichever tool you’re comfortable with (RStudio, Jupyter, GitHub, VS Code, etc). Developing your quarto site will have the same basic workflow, no matter which tool you use. It is very iterative, and each is explored more below.\n\nAuthoring: write text, code, images, etc in a file. Supported files include .md, .Rmd, .qmd, .ipynb…\nUpdate _quarto.yml as needed (for example, if you’ve created a new file you’d like included in your site)\nRender individual files and/or the whole website\nRepeat, repeat, repeat\nCommit and push your website to GitHub, your updates will publish automatically!\nRepeat all of the above to make the website as you’d like!\n\nNote: if editing from your internet browser we won’t render in Step 3. That step will not be separate, but combined with Step 5, which will only require a commit, not a push."
+  },
+  {
+    "objectID": "quarto-workflows/index.html#basic-workflow",
+    "href": "quarto-workflows/index.html#basic-workflow",
+    "title": "Quarto workflows",
+    "section": "",
+    "text": "How do you work in Quarto? You can use whichever tool you’re comfortable with (RStudio, Jupyter, GitHub, VS Code, etc). Developing your quarto site will have the same basic workflow, no matter which tool you use. It is very iterative, and each is explored more below.\n\nAuthoring: write text, code, images, etc in a file. Supported files include .md, .Rmd, .qmd, .ipynb…\nUpdate _quarto.yml as needed (for example, if you’ve created a new file you’d like included in your site)\nRender individual files and/or the whole website\nRepeat, repeat, repeat\nCommit and push your website to GitHub, your updates will publish automatically!\nRepeat all of the above to make the website as you’d like!\n\nNote: if editing from your internet browser we won’t render in Step 3. That step will not be separate, but combined with Step 5, which will only require a commit, not a push."
+  },
+  {
+    "objectID": "quarto-workflows/index.html#authoring",
+    "href": "quarto-workflows/index.html#authoring",
+    "title": "Quarto workflows",
+    "section": "Authoring",
+    "text": "Authoring\nAs an author, you have a lot of options of how your text will be formatted, arranged, and interlinked. You will be writing in Markdown, which is a lightweight text formatting language. The Quarto documentation about authoring introduces markdown-basics that will get you started. Also see Mine Çetinkaya-Rundel’s A Quarto tip a day.\nEach page of our site has a similar first few lines - this YAML, like we saw in our _quarto.yml and it is indicated by two sets of 3 dashes --- :\n---\ntitle: My title\n---\nYou’re able to add more features to individual pages by including it in the YAML, which for the most part here only includes a title. See Quarto excecution options for more information of what you can include in the YAML."
+  },
+  {
+    "objectID": "quarto-workflows/index.html#update-_quarto.yml",
+    "href": "quarto-workflows/index.html#update-_quarto.yml",
+    "title": "Quarto workflows",
+    "section": "Update _quarto.yml",
+    "text": "Update _quarto.yml\nLet’s have a closer look at the _quarto.yml file.\nThis type of file (.yml or .yaml) is written in YAML (“Yet Another Markup Language”). You’ll be able to shift the arrangement of webpages by reordering/adding/deleting them in the _quarto.yml file following the patterns you see in this example.\n\n\n\n_quarto.yml and website side-by-side\n\n\nNotice that there are multiple ways in the _quarto.yml for you to include a file in your website. For example, in the above image, the “First Observations” we see in the left sidebar of the published website (right image) is represented in _quarto.yml (left image) over two lines, with line 36 indicating the file reference and line 37 indicating the text to show up in the left sidebar. However, “From RStudio” is only represented in one line of _quarto.yml, on line 43. This represents two strategies for including a file in your website. By default, the title of a specified file will show up in the website’s sidebar, which is what is happening with the “From RStudio” example. If you would like more control over what is written in the sidebar vs the title of your files, then the approach we took with “First Observations” is what you’ll want to do: you’ll see that only “First Observations” shows up in the sidebar as we specified in _quarto.yml, but the page’s title says “First Observations & Setup” (which in our preference was too long for the sidebar).\n\n\n\n\n\n\nNote\n\n\n\nAs you modify _quarto.yml, the most important thing to know is that spacing matters. Pay attention to whether text is indented by one, two, four, or other spaces, and make sure you follow it; if your site is not looking as expected it is likely a silent error in your YAML. Some text editors like RStudio provide debugging support for YAML and are highly recommended to save you time and heartache."
+  },
+  {
+    "objectID": "quarto-workflows/index.html#install-quarto",
+    "href": "quarto-workflows/index.html#install-quarto",
+    "title": "Quarto workflows",
+    "section": "Install Quarto",
+    "text": "Install Quarto\nhttps://quarto.org/docs/get-started/ describes how to install Quarto, which will depend on your operating system. We’ll walk through installation for each tool in the next chapters."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html",
+    "href": "quarto-workflows/rstudio.html",
+    "title": "From RStudio",
+    "section": "",
+    "text": "The RStudio software (called an IDE, integrated development environment) is an excellent way to edit files and interface with GitHub. Plus, as it is made by the same folks who make Quarto, it has many integrated features for streamlining your workflow with Quarto, including how it previews your edits and provides debugging support for yaml! Quarto's RStudio tutorials has great instructions on getting started with RStudio, including computations and authoring.\nHere is what you’ll need to do to set up and use RStudio with Quarto."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#setup",
+    "href": "quarto-workflows/rstudio.html#setup",
+    "title": "From RStudio",
+    "section": "Setup",
+    "text": "Setup\n\nRStudio and GitHub\nFor a workflow with RStudio and GitHub on your local computer, you will need four things:\n\nR\nRStudio\nGit\nGitHub\n\nFollow the UCSB MEDS Installation Guide for detailed instructions on how to create accounts, download, install, and configure on Mac and Windows. This takes about 20 minutes. (For an even more detailed walk-through, see Allison Horst’s ESM 206 Google Doc).\n\n\nClone your repo\nYou’ll start by cloning your repository into RStudio.\nFile &gt; New Project &gt; Version Control &gt; Git &gt; paste your repository name.\nR for Excel Users: Clone your repository using RStudio has detailed instructions and screenshots of these steps.\n\n\nInstall Quarto\nNext, you’ll install Quarto: https://quarto.org/docs/get-started/. After downloading, follow the installation wizard on your computer. When it is complete, you won’t see an application or any new software, but it is now available to RStudio (as well as all other applications on your computer, including the command line).\n\n\nRStudio orientation\nNow let’s take a moment to get oriented. This is an RStudio project, which is indicated in the top-right. The bottom right pane shows all the files in your project; everything we’ve cloned from GitHub. We can open any RStudio project by opening its .Rproj file, or from RStudio File &gt; Open Project ….\n\n\n\nRStudio IDE highlighting the project name and files pane\n\n\n\n\nVisual Editor\nThe RStudio Visual Editor is quite new and has features that improve your writing experience. Working in the Visual Editor feels a bit like working in a Google Doc.\nHere’s an example showing the same file in the original Source Editor with content in markdown format and in the Visual Editor with content that looks more like it will appear in a live site. You can switch freely between these modes.\n\n\n\n\n\n\n\n\n\nRStudio IDE highlighting the Source Editor\n\n\n\n\n\n\n\nRStudio IDE highlighting the Visual Editor\n\n\n\n\n\nAlready have some content formatted in a Google Doc? You can copy-paste it into the Visual Editor and most formatting will be retained.\nThe editing bar provides familiar point and click access to text formatting options like bulleted or numbered lists.\n\n\n\nRStudio IDE highlighting the point and click editing bar\n\n\n\nKeyboard shortcuts\nThe Visual Editor also lets you use many keyboard shortcuts that might be familiar for adding boldface (command-b), italics (command-i), or headers. On a Mac, option-command-2 will make a level 2 header. Try it with option-command-1, or option-command-0 for normal text!\n\n\nInsert an image or figure\nTo insert an image (called a figure in Quarto), click the image icon. This brings up a window in which we can select the image, set its alignment, give it a caption and alt text, hyperlink it, or edit other metadata.\n\n\n\nInsert image or figure using the Visual Editor\n\n\nOnce an image is added, clicking on that image gives us editing options. We can resize it dynamically by clicking in the image and dragging a corner or side to resize. When an image is selected, its dimensions are displayed for editing. Clicking on the gray ellipsis to the right of the dimensions opens the pop-up window to access more metadata edits.\n\n\nInsert a table\nSimilar to adding an image, to insert a table, we click the Table dropdown."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#quarto-render",
+    "href": "quarto-workflows/rstudio.html#quarto-render",
+    "title": "From RStudio",
+    "section": "Quarto render",
+    "text": "Quarto render\nIn the Build tab in the top-right pane, click “Render Website”. This will build the .html files and preview your website. It’s equivalent to “knitting” in RMarkdown.\nNote that you can also click “Preview Website”. With “Render Website” in RStudio, Quarto is able to render and preview in one step.\nIf you’d ever like to stop the preview, in the bottom-left, click on the Jobs tab and then the red Stop button.\n\nMake a small change and render it\nClick on index.md. This will open this markdown file in a fourth pane; the editor pane. Make a small change, for example change to today’s date on Line 4. Then, save your file; there is a disc icon at the top of the file.\nThen, render this file: press “Render” which is to the right of the disc icon that saves the file. This will render only this single file, as opposed to rerendering the whole website like when we clicked “Render Website” in the top right pane. Checking Render on Save (between the disc icon and the Render button) is a great strategy for doing this in one step."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#create-a-new-.rmd-page",
+    "href": "quarto-workflows/rstudio.html#create-a-new-.rmd-page",
+    "title": "From RStudio",
+    "section": "Create a new .Rmd page",
+    "text": "Create a new .Rmd page\nNew &gt; RMarkdown document &gt; OK\nThe starter RMarkdown document has some R code inside: it displays a summary of the cars dataset that is pre-loaded into R (summary(cars)) and plots the pressure data that is also pre-loaded (plot(pressure)).\nSave this document as r-example.rmd."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#update-_quarto.yml",
+    "href": "quarto-workflows/rstudio.html#update-_quarto.yml",
+    "title": "From RStudio",
+    "section": "Update _quarto.yml",
+    "text": "Update _quarto.yml\nNow we’ll add r-example.rmd to our _quarto.yml file; this is where we register all files to include in our site. Let’s add it after the section called “Quarto Workflows”.\nOpen _quarto.yml by clicking on it from the file directory.\nScroll down to review the current contents in the sidebar: section under contents:. It’s there we see all the file arrangement that we see in the previewed site.\nAdd - r-example.rmd in its own line, making sure that your indentation aligns with the other pages.\nFrom the Build tab, clicking Preview Website will recreate your website!"
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#authoring-tips",
+    "href": "quarto-workflows/rstudio.html#authoring-tips",
+    "title": "From RStudio",
+    "section": "Authoring tips",
+    "text": "Authoring tips\nChecking “Render on Save” is really helpful when iterating quickly on a document.\nIf the document is very code-heavy, consider using freeze that will not run the code each time.\nQuarto.org has details about authoring, including specific instructions about authoring in RStudio."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#commit-and-push",
+    "href": "quarto-workflows/rstudio.html#commit-and-push",
+    "title": "From RStudio",
+    "section": "Commit and push!",
+    "text": "Commit and push!\nCommitting and pushing will make the changes you see locally live on your website (using the GitHub Action we set up earlier)."
+  },
+  {
+    "objectID": "quarto-workflows/rstudio.html#troubleshooting",
+    "href": "quarto-workflows/rstudio.html#troubleshooting",
+    "title": "From RStudio",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\nIf you have trouble rendering your website after for example changing the extenstion of a file from .md to .qmd, refreshing your RStudio often helps. Do this by clicking the project name at the upper right of the RStudio window (in this case, quarto-website-tutorial), and underneath the “close project” section, click the same name of your project: quarto-website-tutorial. This will relaunch your whole project afresh."
+  }
+]

@@ -1,0 +1,28 @@
+---
+title: "Applied Remote Sensing"
+subtitle: "Northern Arizona University INF/EES/ENV 529"
+---
+
+## Welcome {#welcome}
+
+Welcome this is a draft site for the classes INF/EES/ENV 529
+
+## What is Remote sensing? 
+
+Remote sensing is the process of acquiring information about the Earth's surface without direct physical contact, typically through the use of satellites, drones, or aircraft. It involves capturing data across various wavelengths of the electromagnetic spectrum, such as visible light, infrared, microwave, or ultraviolet, using sensors or cameras mounted on these platforms.
+
+## Applications of Remote Sensing:
+
+* **Environmental** Monitoring: Tracking changes in land use, deforestation, desertification, and urbanization.
+
+* **Agriculture:** Monitoring crop health, soil moisture, and yield prediction.
+
+* **Water Resources:** Measuring surface water levels, mapping wetlands, and tracking snow cover.
+
+* **Disaster Management:** Assessing the impact of natural disasters like floods, hurricanes, and wildfires.
+
+* **Climate Studies:** Monitoring glaciers, sea level rise, and temperature changes.
+
+* **Geology:** Identifying mineral deposits, faults, and mapping landforms.
+
+
