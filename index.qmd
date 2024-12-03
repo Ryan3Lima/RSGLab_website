@@ -9,7 +9,11 @@ Welcome! This is a draft site for the RSG Lab
 
 # People {#people}
 
+bios
+
 # Projects {#projects}
+
+list of projects
 
 # Templates {#templates}
 
