@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.39">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Author">
 
-<title>Lab 2 - Getting your image ready for classification – Applied Remote Sensing</title>
+<title>Publication Title – Applied Remote Sensing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -29,19 +30,18 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../Lab-Exercises/Lab-X-HLS.html" rel="next">
-<link href="../Lab-Exercises/index.html" rel="prev">
+<link href="../Datasets/Karst-Lineaments-AZ.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a468feb453018cff2150a5c00675f787.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c433e275a22907dfff1e3503893e9ea6.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,35 +70,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -111,7 +82,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lab-Exercises/index.html">Lab Exercises</a></li><li class="breadcrumb-item"><a href="../Lab-Exercises/Lab-2.html">Lab 2 - Getting your image ready for classification</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Recent-Publications/Publication_xxxx2024.html">Recent-Publications</a></li><li class="breadcrumb-item"><a href="../Recent-Publications/Publication_xxxx2024.html">Publication Title</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -149,7 +120,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Lectures/index.html" class="sidebar-item-text sidebar-link">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
  <span class="menu-text">Lectures</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -158,31 +129,42 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Lectures/HLS_Harmonized_landsat_and_Sentinal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Harmonized Landsat and Sentinel-2 Data</span></a>
+  <a href="../Lectures/Open-Data-and-Quarto-Tutorial.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Open Data Intro and Quarto Tutorial</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../Lab-Exercises/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lab Exercises</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Datasets</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Lab-Exercises/Lab-2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Lab 2 - Getting your image ready for classification</span></a>
+  <a href="../Datasets/Karst-Lineaments-AZ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Karst Lineaments of Arizona</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Recent-Publications</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../Lab-Exercises/Lab-X-HLS.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Harmonized Landsat and Sentinal</span></a>
+  <a href="../Recent-Publications/Publication_xxxx2024.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Publication Title</span></a>
   </div>
 </li>
       </ul>
@@ -197,31 +179,28 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#about-landsat-8" id="toc-about-landsat-8" class="nav-link active" data-scroll-target="#about-landsat-8">About Landsat 8</a></li>
-  <li><a href="#step-1.-start-envi-classic" id="toc-step-1.-start-envi-classic" class="nav-link" data-scroll-target="#step-1.-start-envi-classic">Step 1. Start ENVI Classic</a></li>
-  <li><a href="#step-2.-load-landsat-8-bands" id="toc-step-2.-load-landsat-8-bands" class="nav-link" data-scroll-target="#step-2.-load-landsat-8-bands">Step 2. Load Landsat 8 Bands</a></li>
-  <li><a href="#step-3.-calibrate-each-band" id="toc-step-3.-calibrate-each-band" class="nav-link" data-scroll-target="#step-3.-calibrate-each-band">Step 3. Calibrate each band</a></li>
-  <li><a href="#step-4.-create-a-layerband-stack" id="toc-step-4.-create-a-layerband-stack" class="nav-link" data-scroll-target="#step-4.-create-a-layerband-stack">Step 4. Create a layer/band stack</a></li>
-  <li><a href="#step-5.-open-stacked-image" id="toc-step-5.-open-stacked-image" class="nav-link" data-scroll-target="#step-5.-open-stacked-image">Step 5. Open Stacked Image</a></li>
-  <li><a href="#step-6.-edit-band-names-attributes" id="toc-step-6.-edit-band-names-attributes" class="nav-link" data-scroll-target="#step-6.-edit-band-names-attributes">Step 6. Edit Band Names Attributes</a></li>
-  <li><a href="#step-7.-edit-band-attributes" id="toc-step-7.-edit-band-attributes" class="nav-link" data-scroll-target="#step-7.-edit-band-attributes">Step 7. Edit Band Attributes</a></li>
-  <li><a href="#step-8.-explore-the-image" id="toc-step-8.-explore-the-image" class="nav-link" data-scroll-target="#step-8.-explore-the-image">Step 8. Explore the Image</a></li>
-  <li><a href="#step-9.-display-different-band-combinations" id="toc-step-9.-display-different-band-combinations" class="nav-link" data-scroll-target="#step-9.-display-different-band-combinations">Step 9. Display different band combinations</a></li>
+  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description">Description</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/Ryan3Lima/AppliedRemoteSensingNAU/edit/main/Lab-Exercises/Lab-2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Ryan3Lima/AppliedRemoteSensingNAU/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://https://github.com/Ryan3Lima/RSGLab_website/edit/main/Recent-Publications/Publication_xxxx2024.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://https://github.com/Ryan3Lima/RSGLab_website/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Lab-Exercises/index.html">Lab Exercises</a></li><li class="breadcrumb-item"><a href="../Lab-Exercises/Lab-2.html">Lab 2 - Getting your image ready for classification</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Recent-Publications/Publication_xxxx2024.html">Recent-Publications</a></li><li class="breadcrumb-item"><a href="../Recent-Publications/Publication_xxxx2024.html">Publication Title</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Lab 2 - Getting your image ready for classification</h1>
+<h1 class="title">Publication Title</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Author </p>
+          </div>
+  </div>
     
   
     
@@ -232,318 +211,9 @@ window.Quarto = {
 </header>
 
 
-<p>With this tutorial, we will load bands 1-7 from a Landsat 8 Image</p>
-<p><strong>Requirements:</strong></p>
-<ul>
-<li><p>Downloaded Landsat Tile images for bands 1 - 7</p></li>
-<li><p>Software: ENVI Classic 6.0</p></li>
-</ul>
-<section id="about-landsat-8" class="level2">
-<h2 class="anchored" data-anchor-id="about-landsat-8">About Landsat 8</h2>
-<p>From the <a href="https://landsat.gsfc.nasa.gov/satellites/landsat-8/">NASA.gov Landsat 8 Information Page</a>:</p>
-<blockquote class="blockquote">
-<p><em>Landsat 8 launched on February 11, 2013, from Vandenberg Air Force Base, California, on an Atlas-V 401 rocket, with the extended payload fairing  (EPF) from United Launch Alliance, LLC. (The Landsat 8 Launch in Quotes.) The Landsat 8 satellite payload consists of two science instruments—the Operational Land Imager (OLI) and the Thermal Infrared Sensor (TIRS). These two sensors provide seasonal coverage of the global landmass at a spatial resolution of 30 meters (visible, NIR, SWIR); 100 meters (thermal); and 15 meters (panchromatic). Landsat 8 was developed as a collaboration between NASA and the U.S. Geological Survey (USGS). NASA led the design, construction, launch, and on-orbit calibration phases, during which time the satellite was called the Landsat Data Continuity Mission (LDCM). On May 30, 2013, USGS took over routine operations and the satellite became Landsat 8. USGS leads post-launch calibration activities, satellite operations, data product generation, and data archiving at the Earth Resources Observation and Science (EROS) center.</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>Quick Facts</strong></p>
-</blockquote>
-<blockquote class="blockquote">
-<ul>
-<li><strong>Launch Date:</strong> February 11, 2013</li>
-<li><strong>Sensors:</strong> <a href="https://landsat.gsfc.nasa.gov/satellites/landsat-8/spacecraft-instruments/operational-land-imager/">OLI</a>, <a href="https://landsat.gsfc.nasa.gov/satellites/landsat-8/spacecraft-instruments/thermal-infrared-sensor/">TIRS</a></li>
-<li><strong>Altitude:</strong> 705km</li>
-<li><strong>Inclination:</strong> <span class="math inline">\(98\textdegree\)</span></li>
-<li><strong>Orbit:</strong> Polar, sun-synchronous</li>
-<li><strong>Equitorial Crossing Time:</strong> Nominally 10AM (+/- 15 minutes) local time (descending node)</li>
-<li><strong>Period of Revolution:</strong> 99 minutes; ~14.5 orbits/day</li>
-<li><strong>Repeat Coverage:</strong> 16 days</li>
-<li><strong>Data:</strong> 12-bit scaled to 16-bit intergers</li>
-</ul>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab2_Landsat8_spectral.jpg" class="img-fluid figure-img"></p>
-<figcaption>Source:https://landsat.gsfc.nasa.gov/satellites/landsat-8/: The OLI collects data for two new bands, a coastal/aerosol band (band 1) and a cirrus band (band 9), as well as the heritage Landsat multispectral bands. Additionally, the bandwidth has been refined for six of the heritage bands. The Thermal Instrument (TIRS) carries two additional thermal infrared bands. Note: atmospheric transmission values for this graphic were calculated using MODTRAN for a summertime mid-latitude hazy atmosphere (circa 5 km visibility).Graphic created by L.Rocchio &amp; J.Barsi.</figcaption>
-</figure>
-</div>
-</section>
-<section id="step-1.-start-envi-classic" class="level2">
-<h2 class="anchored" data-anchor-id="step-1.-start-envi-classic">Step 1. Start ENVI Classic</h2>
-<blockquote class="blockquote">
-<p><strong>1.1</strong> In the search bar next to the windows icon type: <em>“ENVI”</em></p>
-</blockquote>
-<p><img src="Images/Lab02_Step01_StartENVIclassic.PNG" class="img-fluid" alt="Open ENVI Classic"> *<strong> &gt; </strong>1.2** Click on <em>ENVI Classic 6.0</em></p>
-<p>ENVI Classic will Start up and you will see a toolbar</p>
-<p><img src="Images/Lab02_Step01_ENVIclassic_bar.PNG" class="img-fluid"></p>
-<hr>
-</section>
-<section id="step-2.-load-landsat-8-bands" class="level2">
-<h2 class="anchored" data-anchor-id="step-2.-load-landsat-8-bands">Step 2. Load Landsat 8 Bands</h2>
-<p>Next we will load landsat 8 bands 1-7. NOTE that when you download a landsat tile you get a seperate file for each band and also a .txt file containing metadata about the Landsat Product you have downloaded.</p>
-<p>Recall that Landsat8 OLI/TIRS has 11 Bands, we will only be working with bands 1-7 in this exercise Ultra-Blue to SWIR 2:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Landsat8_bands.jpg" class="img-fluid figure-img"></p>
-<figcaption>Source:https://landsat.gsfc.nasa.gov/satellites/landsat-8/</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p><strong>2.1</strong> From the ENVI classic Toolbar –select File // Open External File // Generic Formats //</p>
-</blockquote>
-<p><img src="Images/Lab02_Step02_OpenExternal.PNG" class="img-fluid"></p>
-<blockquote class="blockquote">
-<p><strong>2.2</strong> Navigate to the location of the Landsat 8 bands on your computer or on a local drive</p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>2.3</strong> Hold Shift and Select all files, they should all look like this: LC08_L2SP_037035_20210608_20210615_02_T1_SR_B<strong>N</strong>.TIF Note: <strong>N</strong> = 1-7</p>
-</blockquote>
-<p><img src="Images/Lab02_Step02_SelectFiles.PNG" class="img-fluid"></p>
-<p>Next you should see a new window pop up containing the available bands, each loaded as a seperate image with 1-Band each, we will combine them into a single image containing 7 bands in step 4 below.</p>
-<p><img src="Images/Lab02_Step02_AvailableBands.PNG" class="img-fluid"></p>
-<hr>
-</section>
-<section id="step-3.-calibrate-each-band" class="level2">
-<h2 class="anchored" data-anchor-id="step-3.-calibrate-each-band">Step 3. Calibrate each band</h2>
-<p>We need to calibrate each individual band using the metadata and convert the DN (Digital Number) values to Radiance values. But now is also a good time to look at the meta-data file associated with the bands.</p>
-<p>From <a href="https://www.usgs.gov/landsat-missions/landsat-calibration-validation">USGS Landsat Calibration &amp; Validation</a> :</p>
-<blockquote class="blockquote">
-<p><em>While Landsat satellites are well-designed and calibrated prior to launch, continuous calibration is required to offset degradation that may be caused by mechanical or electrical effects, or exposure to UV radiation. Calibration requires a comparison between the measuring instrument and an absolute reference standard known for accuracy. Validation of Landsat data is an ongoing effort</em></p>
-</blockquote>
-<p>Check the website above for more information.</p>
-<blockquote class="blockquote">
-<p><strong>3.1</strong> Navigate to the Directory containing your band images in Explorer</p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>3.2</strong> Create a new folder/directory called <strong>Calibrated</strong> … where we will store the calibrated files.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>3.3</strong> – Select the metadata file <em>LC08_L2SP_037035_20210608_20210615_02_T1_MTL.txt</em> right-click the file and <em>Open with</em> Notepad or some text editor</p>
-</blockquote>
-<p><img src="Images/Lab02_Step03_OpenMetadata.PNG" class="img-fluid"> *** <img src="Images/Lab02_Step03_Metadata.PNG" class="img-fluid"></p>
-<p>Near the bottom of the Meta Data File you will should see the following:</p>
-<ul>
-<li>MAP_PROJECTION = ‘UTM’ - this is the Universal Tranverse Mercator projection which uses <span class="math inline">\(meters\)</span></li>
-<li>DATUM = ‘WGS84’</li>
-<li>UTM_ZONE = 12</li>
-<li>GRID_CELL_SIZE_REFLECTIVE = 30.00 - (<span class="math inline">\(meters\)</span> because of UTMs)</li>
-</ul>
-<p>Now that we have checked the Metadata and everything looks as expected lets <strong>Calibrate the Images</strong>. We will calibrate each image <strong>One-at-a-time</strong></p>
-<blockquote class="blockquote">
-<p><strong>3.4</strong> From the ENVI classic Toolbar – Select: <em>Basic Tools</em> // <em>PreProcessing</em> // <em>Calibration utilities</em> // <em>Landsat calibration</em></p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step03_Calibrate.PNG" class="img-fluid figure-img"></p>
-<figcaption>Landsat Calibration</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p><strong>3.5</strong> Click on the first file and check to make sure it ends in *_B1.TIF*</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step03_SelectB1.PNG" class="img-fluid figure-img"></p>
-<figcaption>Select and Calibrate Band 1</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p><strong>3.6</strong> rename the file LC08_B1_cal and save it to the <em>~somepath/Calibrated</em> directory</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Click <strong>OK</strong></p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step03_SaveCalB1.PNG" class="img-fluid figure-img"></p>
-<figcaption>Save Calibrated band 1</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p><strong>3.7</strong> Repeat with band 2, making sure to click on the the file ending in “_B2.TIF”, rename the file “LC08_B2_cal”</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Repeat with bands 3 through 7</p>
-</blockquote>
-<p>When you are finished you Calibrated Directory should contain 14 files:</p>
-<p>LC08_B<strong>N</strong>cal; <strong>N</strong> = 1 - 7 LC08_B<strong>N</strong>cal.hdr; <strong>N</strong> = 1 - 7</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step03_CalDir.PNG" class="img-fluid figure-img"></p>
-<figcaption>Calibrated Directory</figcaption>
-</figure>
-</div>
-<hr>
-</section>
-<section id="step-4.-create-a-layerband-stack" class="level2">
-<h2 class="anchored" data-anchor-id="step-4.-create-a-layerband-stack">Step 4. Create a layer/band stack</h2>
-<p>Now we need to load the calibrated bands into ENVI as a layer stack, or a multi-band image</p>
-<blockquote class="blockquote">
-<p><strong>4.1</strong> From the ENVI classic Toolbar – Select <em>Basic Tools</em> // <em>Layer Stacking</em></p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step04_select_stack.PNG" class="img-fluid figure-img"></p>
-<figcaption>Select Layer Stacking</figcaption>
-</figure>
-</div>
-<p>The Layer Stacking Paremeters window will now open</p>
-<blockquote class="blockquote">
-<p><strong>4.2</strong> Click <em>Import File</em> on the Layer Stacking Parameters window then Navigate to your <em>Calibrated</em> Directory and select the calibrated bands 1 - 7</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step04_LayerStackWindow.PNG" class="img-fluid figure-img"></p>
-<figcaption>Select calibrated files</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p><strong>4.3</strong> Next click <em>Reorder files</em> and move them around so they are 1-7 from top to bottom.</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step04_reorder.PNG" class="img-fluid figure-img"></p>
-<figcaption>Reorder Files</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p><strong>4.4</strong> Name the stack **LC08_B1_B7_cal_stack, save it in the <em>Calibrated</em> directory</p>
-</blockquote>
-<p>Notice on the right side of the Layer Stacking Paramters window that it confirms that the stack is UTM Zone 12, WGS84, and the pixel size is 30 meters.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step04_SaveStack.PNG" class="img-fluid figure-img"></p>
-<figcaption>Save and compile stack</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p>Click <strong>OK</strong></p>
-</blockquote>
-<hr>
-</section>
-<section id="step-5.-open-stacked-image" class="level2">
-<h2 class="anchored" data-anchor-id="step-5.-open-stacked-image">Step 5. Open Stacked Image</h2>
-<blockquote class="blockquote">
-<p><strong>5.1</strong> Now go to your <em>Avialable Bands List</em> Window and click Load Band</p>
-</blockquote>
-<p>A Greyscale image will appear with three windows showing Band 1 (though its really band seven) I know it is confusing which is why in the next step we will reorder and rename the bands in the bands list.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step05_LoadImage.PNG" class="img-fluid figure-img"></p>
-<figcaption>Load Greyscale</figcaption>
-</figure>
-</div>
-<hr>
-</section>
-<section id="step-6.-edit-band-names-attributes" class="level2">
-<h2 class="anchored" data-anchor-id="step-6.-edit-band-names-attributes">Step 6. Edit Band Names Attributes</h2>
-<blockquote class="blockquote">
-<p><strong>6.1</strong> From the ENVI classic Toolbar – Select: <em>File</em> // <em>Edit ENVI header</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>6.2</strong> When the Edit Header Input File window pops up, – Select <em>LC08_B1_B7_cal_stack</em> click <strong>OK</strong></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>6.3</strong> When the Header Info window pops up, – Select <em>Edit Attributes</em> // <em>Band Names</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>6.4</strong> When the Edit Band Name values window opens – Select the first Layer. It should be something like: Layer <strong>(TM Cal (Band 1:LC08_L2SP_037035_20210608_20210615_02_T1_SR_B7.TIF):LC08_B7_cal)</strong> replace that with <strong>Band_B7</strong> and hit <strong>Enter</strong> on your keyboard orclick <strong>OK</strong></p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Repeat with bands 1-6 ensuring you are correctly naming the bands.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Once completed the Avilable Bands List window should show the new names and they should be in order 1-7 from top to bottom</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step06_NewBandNames.PNG" class="img-fluid figure-img"></p>
-<figcaption>New band names</figcaption>
-</figure>
-</div>
-<hr>
-</section>
-<section id="step-7.-edit-band-attributes" class="level2">
-<h2 class="anchored" data-anchor-id="step-7.-edit-band-attributes">Step 7. Edit Band Attributes</h2>
-<p>Next we will edit the attributes and change the units to wavelength and select the mean wavelength for each landsat band.</p>
-<ul>
-<li>Band 1 = mean(c(0.43,0.45)) = <span class="math inline">\(0.44\mu m\)</span></li>
-<li>Band 2 = mean(c(0.45,0.51)) = <span class="math inline">\(0.48\mu m\)</span></li>
-<li>Band 3 = mean(c(0.53,0.59)) = <span class="math inline">\(0.56\mu m\)</span></li>
-<li>Band 4 = mean(c(0.64,0.67)) = <span class="math inline">\(0.655\mu m\)</span></li>
-<li>Band 5 = mean(c(0.85,0.88)) = <span class="math inline">\(0.865\mu m\)</span></li>
-<li>Band 6 = mean(c(1.57,1.655)) = <span class="math inline">\(1.6125\mu m\)</span></li>
-<li>Band 7 = mean(c(2.11,2.29)) = <span class="math inline">\(2.2\mu m\)</span></li>
-</ul>
-<blockquote class="blockquote">
-<p><strong>7.1</strong> From the ENVI classic Toolbar – Select: <em>File</em> // <em>Edit ENVI header</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>7.2</strong> When the Edit Header Input File window pops up, – Select <em>LC08_B1_B7_cal_stack</em> click <strong>OK</strong></p>
-</blockquote>
-<blockquote class="blockquote">
-<p>When the Header Info window pops up, – Select <em>Edit Attributes</em> // <em>Wavelengths</em></p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>7.3</strong> In the <em>Edit Wavelength Values</em> window – Select <em>Band:1 :0.0000</em> and input the number for Band 1 from above (0.44) which is the mean wavelength or midpoint in the range of values for that band</p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>7.4</strong>Make sure to select Micrometers from the Wavelength/FWHM Units dropdown</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step07_wavelenthB1_044.PNG" class="img-fluid figure-img"></p>
-<figcaption>Edit Wavelength Values</figcaption>
-</figure>
-</div>
-<blockquote class="blockquote">
-<p>Repeat with other 7 bands using values from above and click <strong>OK</strong></p>
-</blockquote>
-<blockquote class="blockquote">
-<p>when you are finished it should look like this:</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step07_finished.PNG" class="img-fluid figure-img"></p>
-<figcaption>Finsihed step 7</figcaption>
-</figure>
-</div>
-<hr>
-</section>
-<section id="step-8.-explore-the-image" class="level2">
-<h2 class="anchored" data-anchor-id="step-8.-explore-the-image">Step 8. Explore the Image</h2>
-<blockquote class="blockquote">
-<p><strong>8.1</strong> In the Available Bands List window, toggle from Gray Scale to RGB Color and Click Load RGB selecting Band_4 for R or Red, Band_3 for G or Green and Band_2 for B or Blue</p>
-</blockquote>
-<p>Three display windows should now pop up and be displaying the image in True Color RGB</p>
-<blockquote class="blockquote">
-<p><strong>8.2</strong> Click on the largest window and scroll to some spot on the map with your cursor right-click and select <em>Cursor Location/Value</em> and watch as the Data values for RG &amp; B change as our scroll across the map.</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step08_RGB.PNG" class="img-fluid figure-img"></p>
-<figcaption>Cursor Location/Value</figcaption>
-</figure>
-</div>
-<hr>
-</section>
-<section id="step-9.-display-different-band-combinations" class="level2">
-<h2 class="anchored" data-anchor-id="step-9.-display-different-band-combinations">Step 9. Display different band combinations</h2>
-<blockquote class="blockquote">
-<p><strong>9.1</strong> Have a look at some <a href="[Common Landsat Band Combinations](https://www.usgs.gov/media/images/common-landsat-band-combinations)">common band combinations</a> used for RGB color display.</p>
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Images/Lab02_Step09_bandcombos.PNG" class="img-fluid figure-img"></p>
-<figcaption>Popular Band Combinations</figcaption>
-</figure>
-</div>
-<p><strong>At a minimum try:</strong></p>
-<blockquote class="blockquote">
-<p><strong>Color Infrared (CIR)</strong> using bands 5,4 &amp; 3 for RG &amp; B respectively</p>
-</blockquote>
-<blockquote class="blockquote">
-<p><strong>False Color (Vegetation Analysis)</strong> using bands 6,5 &amp; 4 for RG &amp; B respectively</p>
-</blockquote>
+<section id="description" class="level1">
+<h1>Description</h1>
+<p>Lineaments are linear or curvilinear surface features…</p>
 
 
 </section>
@@ -775,8 +445,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -785,7 +453,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/ryan3lima\.github\.io\/AppliedRemoteSensingNAU\/");
+      var filterRegex = new RegExp("https:\/\/ryan3lima\.github\.io\/RSGLab_website\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -887,7 +555,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
@@ -1115,14 +782,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../Lab-Exercises/index.html" class="pagination-link" aria-label="Lab Exercises">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Lab Exercises</span>
+      <a href="../Datasets/Karst-Lineaments-AZ.html" class="pagination-link" aria-label="Karst Lineaments of Arizona">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Karst Lineaments of Arizona</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../Lab-Exercises/Lab-X-HLS.html" class="pagination-link" aria-label="Harmonized Landsat and Sentinal">
-        <span class="nav-page-text">Harmonized Landsat and Sentinal</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -1133,7 +797,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Ryan3Lima/AppliedRemoteSensingNAU/edit/main/Lab-Exercises/Lab-2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/Ryan3Lima/AppliedRemoteSensingNAU/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://https://github.com/Ryan3Lima/RSGLab_website/edit/main/Recent-Publications/Publication_xxxx2024.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://https://github.com/Ryan3Lima/RSGLab_website/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

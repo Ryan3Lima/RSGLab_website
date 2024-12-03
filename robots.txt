@@ -1,1 +1,1 @@
-Sitemap: https://ryan3lima.github.io/AppliedRemoteSensingNAU/sitemap.xml
+Sitemap: https://ryan3lima.github.io/RSGLab_website/sitemap.xml

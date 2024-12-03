@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/transition-from-rmarkdown.html</loc>
-    <lastmod>2024-09-30T19:13:42.887Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/Lectures/Open-Data-and-Quarto-Tutorial.html</loc>
+    <lastmod>2024-12-03T17:18:53.776Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/quarto-workflows/jupyter.html</loc>
-    <lastmod>2024-09-30T19:13:42.887Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/Datasets/Karst-Lineaments-AZ.html</loc>
+    <lastmod>2024-12-03T17:18:53.752Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/quarto-workflows/rstudio.html</loc>
-    <lastmod>2024-09-30T19:13:42.887Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/index.html</loc>
+    <lastmod>2024-12-03T17:18:53.828Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/Lab-Exercises/Lab-X-HLS.html</loc>
-    <lastmod>2024-09-30T19:13:42.790Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/quarto-workflows/index.html</loc>
+    <lastmod>2024-12-03T17:18:53.860Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/index.html</loc>
-    <lastmod>2024-09-30T19:13:42.859Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/quarto-workflows/rstudio.html</loc>
+    <lastmod>2024-12-03T17:18:53.860Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/Lab-Exercises/Lab-2.html</loc>
-    <lastmod>2024-09-30T19:13:42.790Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/learning-more.html</loc>
+    <lastmod>2024-12-03T17:18:53.828Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/learning-more.html</loc>
-    <lastmod>2024-09-30T19:13:42.859Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/transition-from-rmarkdown.html</loc>
+    <lastmod>2024-12-03T17:18:53.860Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/Lectures/HLS_Harmonized_landsat_and_Sentinal.html</loc>
-    <lastmod>2024-09-30T19:13:42.791Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/quarto-workflows/browser.html</loc>
+    <lastmod>2024-12-03T17:18:53.828Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/quarto-workflows/index.html</loc>
-    <lastmod>2024-09-30T19:13:42.887Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/quarto-workflows/jupyter.html</loc>
+    <lastmod>2024-12-03T17:18:53.860Z</lastmod>
   </url>
   <url>
-    <loc>https://ryan3lima.github.io/AppliedRemoteSensingNAU/quarto-workflows/browser.html</loc>
-    <lastmod>2024-09-30T19:13:42.860Z</lastmod>
+    <loc>https://ryan3lima.github.io/RSGLab_website/Recent-Publications/Publication_xxxx2024.html</loc>
+    <lastmod>2024-12-03T17:18:53.776Z</lastmod>
+  </url>
+  <url>
+    <loc>https://ryan3lima.github.io/RSGLab_website/Lectures/index.html</loc>
+    <lastmod>2024-12-03T17:18:53.776Z</lastmod>
   </url>
 </urlset>
